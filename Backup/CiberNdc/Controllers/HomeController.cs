@@ -16,16 +16,5 @@ namespace CiberNdc.Controllers
             return View();
         }
 
-        public ActionResult Mobil()
-        {
-            return View();
-        }
-
-        public ActionResult Test()
-        {
-            var asdf = " ;";
-            return null;
-        }
-
     }
 }

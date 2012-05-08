@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="CiberNdc">
+</Property><Property Name="Solution File" Value="C:\Users\SAMVAL\GitHub\CIBER-NDC\CiberNdc.sln">
+</Property><Property Name="User Options File" Value="C:\Users\SAMVAL\GitHub\CIBER-NDC\CiberNdc.v11.suo">
+</Property><Property Name="Date" Value="4. mai 2012">
+</Property><Property Name="Time" Value="12:08">
+</Property></Properties><Event ErrorLevel="3" Project="" Source="CiberNdc.sln" Description="SafeUpgrade">
+</Event><Event ErrorLevel="0" Project="" Source="CiberNdc.sln" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc.sln">
+</Event><Event ErrorLevel="0" Project="" Source="CiberNdc.v11.suo" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc.v11.suo">
+</Event><Event ErrorLevel="3" Project="CiberNdc" Source="CiberNdc\CiberNdc.csproj" Description="SafeUpgrade">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\CiberNdc.csproj" Description="Project file successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\CiberNdc.csproj">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Context\DataContext.cs" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Context\DataContext.cs">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Controllers\HomeController.cs" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Controllers\HomeController.cs">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Global.asax.cs" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Global.asax.cs">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Migrations\Configuration.cs" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Migrations\Configuration.cs">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Util\ImageUtil.cs" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Util\ImageUtil.cs">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Light-webfont.eot" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Light-webfont.eot">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Light-webfont.ttf" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Light-webfont.ttf">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Light-webfont.woff" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Light-webfont.woff">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.eot" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.eot">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.ttf" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.ttf">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.woff" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.woff">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\bootstrap-responsive.min.css" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\bootstrap-responsive.min.css">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\bootstrap.min.css" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\bootstrap.min.css">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto License.txt" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto License.txt">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Light-webfont.svg" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Light-webfont.svg">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.svg" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\fonts\Roboto-Regular-webfont.svg">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\images\slow-and-steady-wins-the-race.jpg" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\images\slow-and-steady-wins-the-race.jpg">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\metro\metro.css" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\metro\metro.css">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\EntityFramework.Migrations.ReadMe.txt" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\EntityFramework.Migrations.ReadMe.txt">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Global.asax" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Global.asax">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Content\Site.css" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Content\Site.css">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\bootstrap.min.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\bootstrap.min.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\vs\jquery-1.6.2-vsdoc.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\vs\jquery-1.6.2-vsdoc.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\jquery-1.6.2.min.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\jquery-1.6.2.min.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\metro\jquery.metro.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\metro\jquery.metro.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\jquery.unobtrusive-ajax.min.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\jquery.unobtrusive-ajax.min.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\vs\jquery.validate-vsdoc.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\vs\jquery.validate-vsdoc.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\jquery.validate.min.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\jquery.validate.min.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Scripts\jquery.validate.unobtrusive.min.js" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Scripts\jquery.validate.unobtrusive.min.js">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Web.config" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Web.config">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Web.Debug.config" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Web.Debug.config">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Web.Release.config" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Web.Release.config">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Views\Web.config" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Views\Web.config">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Views\_ViewStart.cshtml" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Views\_ViewStart.cshtml">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Views\Shared\Error.cshtml" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Views\Shared\Error.cshtml">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Views\Shared\_Layout.cshtml" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Views\Shared\_Layout.cshtml">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\packages.config" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\packages.config">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\Views\Home\Index.cshtml" Description="File successfully backed up as C:\Users\SAMVAL\GitHub\CIBER-NDC\Backup\CiberNdc\Views\Home\Index.cshtml">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\CiberNdc.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="CiberNdc" Source="CiberNdc\CiberNdc.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="CiberNdc.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="CiberNdc.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="CiberNdc" Source="CiberNdc\CiberNdc.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
