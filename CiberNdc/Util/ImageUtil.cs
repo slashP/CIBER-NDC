@@ -7,7 +7,7 @@ namespace CiberNdc.Util
 {
     public static class ImageUtil
     {
-        private static Stream ToStream(this Image image, ImageFormat formaw)
+        public static Stream ToStream(this Image image, ImageFormat formaw)
         {
             var stream = new MemoryStream();
             image.Save(stream, formaw);
@@ -15,29 +15,77 @@ namespace CiberNdc.Util
             return stream;
         }
 
-        public static byte[] ToByteArray(this Image image, ImageFormat format)
+        public static Stream ResizeImage(Image imgToResize, Size size, ImageFormat imageFormat)
         {
-            return ReadFully(image.ToStream(format));
+            var sourceWidth = imgToResize.Width;
+            var sourceHeight = imgToResize.Height;
+
+            float nPercent;
+            var nPercentW = (size.Width / (float)sourceWidth);
+            var nPercentH = (size.Height / (float)sourceHeight);
+
+            if (nPercentH < nPercentW)
+                nPercent = nPercentH;
+            else
+                nPercent = nPercentW;
+
+            var destWidth = (int)(sourceWidth * nPercent);
+            var destHeight = (int)(sourceHeight * nPercent);
+
+            var b = new Bitmap(destWidth, destHeight);
+            var g = Graphics.FromImage((Image)b);
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+            g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
+            g.Dispose();
+
+            return b.ToStream(imageFormat);
         }
 
-        public static Image Resize(this Image image, int width, int height)
+        public static string[] AllowedImageTypes = new[] { "image/jpeg", "image/png", "image/gif", "image/pjpeg" };
+
+        public static ImageFormat GetImageFormatFromFileExtension(string fileExtension)
         {
-            var sourceWidth = image.Width;
-            var sourceHeight = image.Height;
-            var widthRatio = (width/(float) sourceWidth);
-            var heightRatio = (height/(float) sourceHeight);
-            var resizeRatio = heightRatio < widthRatio ? heightRatio : widthRatio;
-            var destWidth = (int) (sourceWidth*resizeRatio);
-            var destHeight = (int) (sourceHeight*resizeRatio);
-            var resizedImage = new Bitmap(destWidth, destHeight);
-            using (var g = Graphics.FromImage(resizedImage))
+            switch (fileExtension.ToUpperInvariant())
             {
-                g.SmoothingMode = SmoothingMode.HighQuality;
-                g.CompositingQuality = CompositingQuality.HighQuality;
-                g.InterpolationMode = InterpolationMode.High;
-                g.DrawImage(image, new Rectangle(0, 0, resizedImage.Width, resizedImage.Height));
-                return resizedImage;
+                case "JPG":
+                    return ImageFormat.Jpeg;
+                case "PNG":
+                    return ImageFormat.Png;
+                case "GIF":
+                    return ImageFormat.Gif;
             }
+            return ImageFormat.Jpeg;
+        }
+
+        public static ImageFormat GetImageFormat(string contentType)
+        {
+            switch (contentType)
+            {
+                case "image/jpeg":
+                case "image/pjpeg":
+                    return ImageFormat.Jpeg;
+                case "image/png":
+                    return ImageFormat.Png;
+                case "image/gif":
+                    return ImageFormat.Gif;
+            }
+            return ImageFormat.Png;
+        }
+
+        public static string GetImageContentType(string contentType)
+        {
+            switch (contentType.ToUpperInvariant())
+            {
+                case "JPEG":
+                case "JPG":
+                    return "image/jpeg";
+                case "PNG":
+                    return "image/png";
+                case "GIF":
+                    return "image/gif";
+            }
+            return "image/jpeg";
         }
 
         public static Image ByteArrayToImage(byte[] byteArrayIn)
@@ -45,20 +93,6 @@ namespace CiberNdc.Util
             var ms = new MemoryStream(byteArrayIn);
             var returnImage = Image.FromStream(ms);
             return returnImage;
-        }
-
-        private static byte[] ReadFully(Stream input)
-        {
-            var buffer = new byte[5*1024*1024]; // 5 MB.
-            using (var ms = new MemoryStream())
-            {
-                int read;
-                while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
-            }
         }
     }
 }
