@@ -5,14 +5,10 @@
 }
 
 
-
 <script src="/Scripts/workspaceViewModel.js"></script>
 <script src="/Scripts/custom/videoInit.js"></script>
 <script src="/Scripts/custom/takePicture.js"></script>
 <script src="/Scripts/custom/message.js"></script>
-
-
-    <h1 title="Lynx"></h1>
 
     <div class="msg-holder" data-bind="visible: showMsg()">
         <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
@@ -24,19 +20,20 @@
     </div>
 
     <div id="loading" data-bind="visible: loading">
-        <img src="/Styles/images/ajax-loader.png">
+        <img src="/Content/images/ajax-loader.png">
     </div>
 
-    <div class="green_square"></div>
-    <video autoplay data-bind="videoInit: 'null'"></video>
-    <canvas  width="480" height="640" style="display:none;"></canvas>
+<video autoplay data-bind="videoInit: 'null'"></video>
+<canvas  width="480" height="640" style="display:none;"></canvas>
+<input type="text" data-bind="" value="Write code"/>
+<button data-bind="takePicture: 'null'" >Upload image</button>
 
-    <button value="Send face and tag to SharePoint" data-bind="takePicture: 'null'"></button>
-    <script>
-        $(document).ready(function() {
-            var workspace = new workspaceViewModel();
-            $(function () {
-                ko.applyBindings(workspace, $('workspace').get(0));
-            });
+
+<script>
+    $(document).ready(function () {
+        var workspace = new workspaceViewModel();
+        $(function () {
+            ko.applyBindings(workspace, $('workspace').get(0));
         });
+    });
 </script>

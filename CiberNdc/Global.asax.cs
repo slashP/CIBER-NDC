@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.WebPages;
 
 namespace CiberNdc
 {
@@ -39,11 +40,16 @@ namespace CiberNdc
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            BundleTable.Bundles.RegisterTemplateBundles();
+            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("iPhone")
+                                                             {
+                                                                 ContextCondition = context =>
+                                                                     context.Request.UserAgent != null && 
+                                                                     context.Request.UserAgent.IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0
+                                                             });
+            //BundleTable.Bundles.RegisterTemplateBundles();
         }
     }
 }

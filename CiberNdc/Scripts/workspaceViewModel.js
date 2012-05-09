@@ -13,17 +13,16 @@
     this.name = ko.observable('');
 
 
-
     this.imageData.subscribe(function (value) {
 
         json.image = value;
-        json.test = "123"
+        json.test = "123";
         myself.failure(false);
         myself.success(false);
         $.ajax({
             url: myself.url,
             type: 'post',
-            beforeSend: function () { myself.loading(true) },
+            beforeSend: function () { myself.loading(true); },
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(json),
             success: myself.successCallback,
@@ -35,7 +34,7 @@
     this.successCallback = function (data) {
 
         myself.name('');
-        
+
         myself.loading(false);
 
         if (data.success) {
