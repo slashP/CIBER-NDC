@@ -215,7 +215,8 @@
     <Content Include="Views\Home\Mobil.cshtml" />
     <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
     <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
-    <Content Include="Views\Home\Album.cshtml" />
+    <Content Include="Views\Shared\_Layout.iPhone.cshtml" />
+    <Content Include="Views\Home\Index.mobile.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

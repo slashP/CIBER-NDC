@@ -9,7 +9,8 @@
     <script src="/Scripts/knockout.js"></script>
     <script src="/Scripts/jquery-1.6.4.js"></script>
 </head>
-<body>
-    @RenderBody()
-</body>
+    <body>
+        <div>@Html.Partial("_ViewSwitcher")</div>
+        @RenderBody()
+    </body>
 </html>

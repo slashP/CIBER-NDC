@@ -1,0 +1,16 @@
+﻿@model List<CiberNdc.Models.Photo>
+@{
+    ViewBag.Title = "Ciber @ NDC";
+}
+
+<ul data-role="listview" data-inset="true" data-filter="true">
+    @foreach (var bilde in Model)
+    {
+        <li class="item">
+            <a href="/Home/GetImage?id=@(bilde.Id)">
+                <img alt="@bilde.Name" src="/Home/GetImage?id=@(bilde.Id)" class="thumbnail-border" width="180" />
+            </a>
+            <span class="image-overlay">@bilde.Filename.Substring(0,10)</span>
+        </li>
+    }
+</ul>

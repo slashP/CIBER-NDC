@@ -21,11 +21,6 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult Album()
-        {
             var bilder = _db.Photos.ToList();
             return View(bilder);
         }

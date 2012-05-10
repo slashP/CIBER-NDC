@@ -154,7 +154,7 @@
                 // find and set current item
                 var item = this.items.children(".pivotItem:nth(" + index + ")");
                 this.setCurrentItem(item, index);
-            },
+            }
         });
 
         return this.initialize();
