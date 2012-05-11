@@ -14,7 +14,6 @@ namespace CiberNdc.Controllers
 {
     public class HomeController : Controller
     {
-
         private readonly DataContext _db = new DataContext();
 
         // GET: /Home/
@@ -47,20 +46,19 @@ namespace CiberNdc.Controllers
 
             imageEncoded.Save(fileLocation, ImageFormat.Png);
 
-            var photo = new Photo()
+            var photo = new Photo
                             {
                                 Filename = filnanvn + ".png",
                                 Format = "Image/Png",
                                 Name = filnanvn,
                                 ImageStream = ReadFully(ToStream(imageEncoded, ImageFormat.Png)),
-                                Id = 1
                             };
             _db.Photos.Add(photo);
             _db.SaveChanges();
 
             imageEncoded.Dispose();
 
-            return new JsonResult() { Data = new { success = true, name = "Woot!" } };  
+            return new JsonResult { Data = new { success = true, name = "Woot!" } };  
         }
         public static byte[] ReadFully(Stream input)
         {
