@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.WebPages;
+using CiberNdc.Context;
+using Devtalk.EF.CodeFirst;
 
 namespace CiberNdc
 {
@@ -38,13 +41,13 @@ namespace CiberNdc
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
             DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("iPhone")
             {
                 ContextCondition = context =>
                     context.Request.UserAgent != null &&
                     context.Request.UserAgent.IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0
             });
+            Database.SetInitializer(new DontDropDbJustCreateTablesIfModelChanged<DataContext>());
             //BundleTable.Bundles.RegisterTemplateBundles();
         }
     }
