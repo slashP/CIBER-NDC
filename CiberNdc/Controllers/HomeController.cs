@@ -20,7 +20,7 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            var photos = _db.Photos.Skip(Math.Max(0, _db.Photos.Count() - 4)).Take(4);
+            var photos = _db.Photos.OrderBy(x => x.Id).Skip(Math.Max(0, _db.Photos.Count() - 4)).Take(4);
             return View(photos);
         }
 
