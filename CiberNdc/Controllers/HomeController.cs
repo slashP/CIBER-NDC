@@ -20,8 +20,8 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            var bilder = _db.Photos.ToList();
-            return View(bilder);
+            var photos = _db.Photos.Skip(Math.Max(0, _db.Photos.Count() - 4)).Take(4);
+            return View(photos);
         }
 
         public ActionResult GetImage(int id)
