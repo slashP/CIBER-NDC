@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Providers.Entities;
 
 namespace CiberNdc.Models
 {
@@ -14,11 +9,12 @@ namespace CiberNdc.Models
         public byte[] ImageStream { get; set; }
         public string Filename { get; set; }
         public string Format { get; set; }
-    }
 
-    public class PhotoDBContext : DbContext
-    {
-        public DbSet<Photo> Photos { get; set; }
+        public string RandomBackgroundColor()
+        {
+            var colors = new[] {"greenbg", "redbg", "bluebg", "brownbg"};
+            return colors[DateTime.Now.Ticks%4];
+        }
     }
     
 }

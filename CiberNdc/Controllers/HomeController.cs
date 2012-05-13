@@ -41,11 +41,8 @@ namespace CiberNdc.Controllers
             var splitted = image.Split(',')[1];
             var imageEncoded = Base64ToImage(splitted);
             var filnanvn = "test-" + DateTime.Now.ToFileTime();
-            var fileLocation = "c:\\test\\" + filnanvn + ".png";
-
-
-            imageEncoded.Save(fileLocation, ImageFormat.Png);
-
+            //var fileLocation = "c:\\test\\" + filnanvn + ".png";
+            //imageEncoded.Save(fileLocation, ImageFormat.Png);
             var photo = new Photo
                             {
                                 Filename = filnanvn + ".png",
