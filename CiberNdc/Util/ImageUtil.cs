@@ -15,7 +15,7 @@ namespace CiberNdc.Util
             return stream;
         }
 
-        public static Stream ResizeImage(Image imgToResize, Size size, ImageFormat imageFormat)
+        public static Stream ResizeImage(this Image imgToResize, Size size, ImageFormat imageFormat)
         {
             var sourceWidth = imgToResize.Width;
             var sourceHeight = imgToResize.Height;
