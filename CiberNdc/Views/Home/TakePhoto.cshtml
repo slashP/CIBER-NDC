@@ -10,26 +10,31 @@
 <script src="/Scripts/custom/videoInit.js"></script>
 <script src="/Scripts/custom/takePicture.js"></script>
 <script src="/Scripts/custom/message.js"></script>
-<script src="/Scripts/jquery.mobile-1.1.0.js"></script>
 
 <div data-role="content">
-    <div class="msg-holder" data-bind="visible: showMsg()">
-            <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-                <h2>Failure</h2>
-            </div>
-            <div data-bind="message: success,visible: success" class='success-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-                <h2>Success! <span data-bind="text: name"></span></h2>
-            </div>
+    <div class="msg-holder" data-bind="visible: showMsg()" >
+        <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
+            <h2>Failure</h2>
         </div>
-
-        <div id="loading" data-bind="visible: loading">
-            <img src="/Content/images/ajax-loader.png">
+        <div data-bind="message: success,visible: success" class='success-msg ui-overlay-shadow ui-body-c ui-corner-all'>
+            <h2>Success! <span data-bind="text: name"></span></h2>
         </div>
-
+    </div>
+    <div id="loading" data-bind="visible: loading">
+        <img src="/Content/images/ajax-loader.png">
+    </div>
     <video autoplay data-bind="videoInit: 'null'"></video>
-    <canvas  width="480" height="640" style="display:none;"></canvas>
-    <input type="text" data-bind="value:codeword" />
-    <button data-bind="takePicture: 'null'" >Upload image</button>
+    <canvas width="480" height="640" style="display:none;"></canvas>
+
+    <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+            <label for="codeword">
+                Codeword:
+            </label>
+            <input type="text" id="codeword" data-bind="value:codeword" />
+        </fieldset>
+    </div>
+    <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
 </div>
 <script>
     $(document).ready(function () {

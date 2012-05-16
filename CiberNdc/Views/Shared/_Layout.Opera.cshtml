@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width" />
         <link rel="stylesheet" href="@Url.Content("~/Content/jquery.mobile-1.0b3.min.css")" />
         <link rel="stylesheet" href="@Url.Content("~/Content/Site.Mobile.css")" />
-        @ViewBag.Scripts
+        @Html.Partial("_MobileScripts");
     </head> 
     <body>
         <div data-role="page" data-theme="a" data-content-theme="a">
@@ -15,8 +15,8 @@
                 <div data-role="navbar">
                     <ul>
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li> @Html.ActionLink("Take Photo", "TakePhoto", "Home")</li>
-                        <li> @Html.ActionLink("Upload Photo", "UploadPhoto", "Home")</li>
+                        <li>@Html.ActionLink("Take Photo", "TakePhoto", "Home")</li>
+                        <li>@Html.ActionLink("Upload Photo", "UploadPhoto", "Home")</li>
                     </ul>
                 </div>
             </div>
