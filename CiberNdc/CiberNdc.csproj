@@ -155,14 +155,20 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\ajax-loader.png" />
-    <Content Include="Content\images\icon-search-black.png" />
     <Content Include="Content\images\icons-18-black.png" />
     <Content Include="Content\images\icons-18-white.png" />
     <Content Include="Content\images\icons-36-black.png" />
     <Content Include="Content\images\icons-36-white.png" />
     <Content Include="Content\jquery.mobile-1.0b3.css" />
     <Content Include="Content\jquery.mobile-1.0b3.min.css" />
+    <Content Include="Content\jquery.mobile-1.1.0.css" />
+    <Content Include="Content\jquery.mobile-1.1.0.min.css" />
+    <Content Include="Content\jquery.mobile.structure-1.1.0.css" />
+    <Content Include="Content\jquery.mobile.structure-1.1.0.min.css" />
+    <Content Include="Content\jquery.mobile.theme-1.1.0.css" />
+    <Content Include="Content\jquery.mobile.theme-1.1.0.min.css" />
     <Content Include="Content\metro\fonts\Roboto License.txt" />
     <Content Include="Content\metro\fonts\Roboto-Light-webfont.svg" />
     <Content Include="Content\metro\fonts\Roboto-Regular-webfont.svg" />
@@ -175,8 +181,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery.mobile-1.0b3.js" />
-    <Content Include="Scripts\jquery.mobile-1.0b3.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.1.0.js" />
+    <Content Include="Scripts\jquery.mobile-1.1.0.min.js" />
     <Content Include="Scripts\knockout.js" />
     <Content Include="Scripts\custom\message.js" />
     <Content Include="Scripts\custom\takePicture.js" />
@@ -217,11 +223,15 @@
     <None Include="Content\metro\fonts\Roboto-Regular-webfont.eot" />
     <None Include="Content\metro\fonts\Roboto-Regular-webfont.ttf" />
     <None Include="Content\metro\fonts\Roboto-Regular-webfont.woff" />
-    <Content Include="Views\Home\Mobil.cshtml" />
+    <Content Include="Views\Home\TakePhoto.cshtml" />
     <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
     <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
-    <Content Include="Views\Shared\_Layout.iPhone.cshtml" />
-    <Content Include="Views\Home\Index.mobile.cshtml" />
+    <Content Include="Views\Home\Index.Mobile.cshtml" />
+    <Content Include="Views\Shared\_Layout.Opera.cshtml" />
+    <Content Include="Views\Shared\_MobileScripts.cshtml" />
+    <Content Include="Views\Shared\_DesktopScripts.cshtml" />
+    <Content Include="Views\Home\Index.Opera.cshtml" />
+    <Content Include="Views\Home\UploadPhoto.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -11,12 +11,12 @@
     this.loading = ko.observable(false);
     var json = new Object();
     this.name = ko.observable('');
-
+    this.codeword = ko.observable('codeword');
 
     this.imageData.subscribe(function (value) {
 
         json.image = value;
-        json.test = "123";
+        json.codeword = myself.codeword();
         myself.failure(false);
         myself.success(false);
         $.ajax({
