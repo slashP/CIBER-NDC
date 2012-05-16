@@ -1,0 +1,56 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Upload photo";
+
+    var warning = (string)ViewBag.Warning;
+    var success = (string)ViewBag.Success;
+}
+@if (!string.IsNullOrEmpty(warning))
+{
+    <div class="alert alert-error">
+        @warning
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(success))
+{
+    <div class="alert alert-success">
+        @success
+    </div>
+}
+
+<h2>Upload photo</h2>
+
+@using (Html.BeginForm("UploadPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+        <div class="editor-label">
+            Upload an image file
+        </div>
+        <div class="editor-field">
+            <input type="file" name="fileUpload" id="fileUpload" /><br />
+        </div>
+        @*<div class="row">
+            <div class="span3">
+                <div class="editor-label">
+                    Who is it?
+                </div>
+                <div id="album" class="editor-field">
+                    @Html.DropDownList("EmployeeId", "Velg ansatt")
+                </div>
+            </div>
+        </div>*@
+
+        <div class="editor-label">
+            What is the secret codeword?
+        </div>
+        <div class="editor-field">
+            <input id="codeword" name="codeword" type="text" />
+        </div>
+
+        <p>
+            <input type="submit" value="Upload" />
+        </p>
+    </fieldset>
+}

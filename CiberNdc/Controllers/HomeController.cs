@@ -20,7 +20,7 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            var photos = _db.Photos.OrderBy(x => x.Id).Skip(Math.Max(0, _db.Photos.Count() - 4)).Take(4);
+            var photos = _db.Photos.Where(x => !String.IsNullOrEmpty(x.Name)).OrderBy(x => x.Id).Skip(Math.Max(0, _db.Photos.Count() - 8)).Take(8);
             return View(photos);
         }
 
@@ -30,16 +30,55 @@ namespace CiberNdc.Controllers
             return File(bilde.ImageStream, ImageUtil.GetImageContentType(bilde.Format));
         }
 
-        public ActionResult Mobil()
+        public ActionResult TakePhoto()
         {
             return View();
         }
 
+        public ActionResult UploadPhoto(string warning, string success)
+        {
+            ViewBag.Warning = warning;
+            ViewBag.Success = success;
+            return View();
+        }
+
+         [HttpPost]
+        public ActionResult UploadPhoto(string codeword)
+         {
+             var image = Request.Files.Count > 0 ? Request.Files[0] : null;
+
+             if (String.IsNullOrEmpty(codeword))
+                 codeword = DateTime.Now.ToShortDateString();
+
+             if (image != null && ImageUtil.AllowedImageTypes.Contains(image.ContentType))
+             {
+                 var im = Image.FromStream(image.InputStream);
+                 var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
+                 var newImage = ImageUtil.ResizeImage(im, new Size(640, 480), imageFormat);
+
+                 var photo = new Photo()
+                                 {
+                                     Filename = image.FileName,
+                                     Format = imageFormat.ToString(),
+                                     Name = codeword,
+                                     ImageStream = ReadFully(newImage)
+                                 };
+                 _db.Photos.Add(photo);
+                 _db.SaveChanges();
+                 return RedirectToAction("UploadPhoto", new {success = "Image uploaded!"});
+             }
+
+             return RedirectToAction("UploadPhoto", new {warning = "Somethin went wrong!"});
+         }
+
         [HttpPost]
-        public ActionResult Test(string image, string test)
+        public ActionResult Test(string image, string codeword)
         {
             var splitted = image.Split(',')[1];
             var imageEncoded = Base64ToImage(splitted);
+            var title = DateTime.Now.ToShortDateString();
+            if (!String.IsNullOrEmpty(codeword))
+                title = codeword;
             var filnanvn = "test-" + DateTime.Now.ToFileTime();
             //var fileLocation = "c:\\test\\" + filnanvn + ".png";
             //imageEncoded.Save(fileLocation, ImageFormat.Png);
@@ -47,7 +86,7 @@ namespace CiberNdc.Controllers
                             {
                                 Filename = filnanvn + ".png",
                                 Format = "Image/Png",
-                                Name = filnanvn,
+                                Name = title,
                                 ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(400, 600), ImageFormat.Png)),
                             };
             _db.Photos.Add(photo);
@@ -55,7 +94,7 @@ namespace CiberNdc.Controllers
 
             imageEncoded.Dispose();
 
-            return new JsonResult { Data = new { success = true, name = "Woot!" } };  
+            return new JsonResult { Data = new { success = true, name = "" } };  
         }
         public static byte[] ReadFully(Stream input)
         {
