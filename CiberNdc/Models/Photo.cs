@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace CiberNdc.Models
 {
@@ -9,6 +11,8 @@ namespace CiberNdc.Models
         public byte[] ImageStream { get; set; }
         public string Filename { get; set; }
         public string Format { get; set; }
+        public int? EmployeeId { get; set; }
+        public virtual Employee Employee { get; set; }
 
         private static readonly Random Random = new Random();
 
@@ -17,6 +21,13 @@ namespace CiberNdc.Models
             var colors = new[] {"greenbg", "redbg", "bluebg", "brownbg"};
             return colors[Random.Next(0,3)];
         }
+    }
+
+    public class Employee
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public virtual Collection<Photo> Photos { get; set; }
     }
     
 }

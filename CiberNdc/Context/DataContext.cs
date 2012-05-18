@@ -9,6 +9,8 @@ namespace CiberNdc.Context
 {
     public class DataContext : DbContext 
     {
-        public DbSet<Photo> Photos { get; set; } 
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
+
 }
