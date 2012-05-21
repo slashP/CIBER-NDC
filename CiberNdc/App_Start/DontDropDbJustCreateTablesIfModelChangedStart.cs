@@ -1,7 +1,8 @@
 using System.Data.Entity;
 using Devtalk.EF.CodeFirst;
+using WebActivator;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(CiberNdc.App_Start.DontDropDbJustCreateTablesIfModelChangedStart), "Start")]
+[assembly: PreApplicationStartMethod(typeof(CiberNdc.App_Start.DontDropDbJustCreateTablesIfModelChangedStart), "Start")]
 
 namespace CiberNdc.App_Start {
     public static class DontDropDbJustCreateTablesIfModelChangedStart {
