@@ -32,69 +32,90 @@ namespace CiberNdc.Controllers
 
         public ActionResult TakePhoto()
         {
+            ViewBag.Employees = _db.Employees;
             return View();
         }
 
         public ActionResult UploadPhoto(string warning, string success)
         {
+            ViewBag.EmployeeId = new SelectList(_db.Employees.Where(x => x.IsActive == true), "Id", "Name");
             ViewBag.Warning = warning;
             ViewBag.Success = success;
             return View();
         }
 
-         [HttpPost]
-        public ActionResult UploadPhoto(string codeword)
+        [HttpPost]
+        public ActionResult UploadPhoto(int? employeeId, string codeword)
          {
-             var image = Request.Files.Count > 0 ? Request.Files[0] : null;
+            if(employeeId == null)
+                return RedirectToAction("UploadPhoto", new { warning = "You have to choose an employee!" });
+            if (String.IsNullOrEmpty(codeword))
+                return RedirectToAction("UploadPhoto", new { warning = "You have to fill in a codeword!" });
 
-             if (String.IsNullOrEmpty(codeword))
-                 codeword = DateTime.Now.ToShortDateString();
+            var employee = _db.Employees.Find(employeeId);
 
-             if (image != null && ImageUtil.AllowedImageTypes.Contains(image.ContentType))
-             {
-                 var im = Image.FromStream(image.InputStream);
-                 var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
-                 var newImage = ImageUtil.ResizeImage(im, new Size(640, 480), imageFormat);
+            if (employee.Codeword.ToUpper() != codeword.ToUpper())
+                return RedirectToAction("UploadPhoto", new { warning = "Wrong codeword!" });
 
-                 var photo = new Photo()
-                                 {
-                                     Filename = image.FileName,
-                                     Format = imageFormat.ToString(),
-                                     Name = codeword,
-                                     ImageStream = ReadFully(newImage)
+            var image = Request.Files.Count > 0 ? Request.Files[0] : null;
+
+            if (image != null && ImageUtil.AllowedImageTypes.Contains(image.ContentType))
+            {
+                var im = Image.FromStream(image.InputStream);
+                var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
+                var newImage = ImageUtil.ResizeImage(im, new Size(640, 480), imageFormat);
+                var title = employee.Name + "-" + DateTime.Now.ToString("MM.dd HH:mm");
+
+                var photo = new Photo()
+                                {
+                                    Filename = image.FileName,
+                                    Format = imageFormat.ToString(),
+                                    Name = title,
+                                    ImageStream = ReadFully(newImage)
                                  };
                  _db.Photos.Add(photo);
                  _db.SaveChanges();
-                 return RedirectToAction("UploadPhoto", new {success = "Image uploaded!"});
+                 return RedirectToAction("UploadPhoto", new {success = "Correct codeword! Image uploaded!"});
              }
 
-             return RedirectToAction("UploadPhoto", new {warning = "Somethin went wrong!"});
+             return RedirectToAction("UploadPhoto", new {failure = "Something went wrong!"});
          }
 
         [HttpPost]
-        public ActionResult Test(string image, string codeword)
+        public ActionResult Test(string image, string codeword, string employeeId)
         {
+            var employee = _db.Employees.Find(Convert.ToInt32(employeeId));
+            
+            if (String.IsNullOrEmpty(codeword))
+                return new JsonResult { Data = new { warning = true, message = "Fill in a codeword!" } };
+            
+            if (String.IsNullOrEmpty(employeeId))
+                return new JsonResult { Data = new { warning = true, message = "Choose an employee!" } };
+
+            if (employee == null)
+                return new JsonResult { Data = new { warning = true, message = "Employee not found!" } };
+
+            if (employee.Codeword.ToUpper() != codeword.ToUpper())
+                return new JsonResult { Data = new { warning = true, message = "Wrong codeword!" } };
+
+            var filnanvn = "test-" + DateTime.Now.ToFileTime();
+            var title = employee.Name + "-" + DateTime.Now.ToString("MM.dd HH:mm");
             var splitted = image.Split(',')[1];
             var imageEncoded = Base64ToImage(splitted);
-            var title = DateTime.Now.ToShortDateString();
-            if (!String.IsNullOrEmpty(codeword))
-                title = codeword;
-            var filnanvn = "test-" + DateTime.Now.ToFileTime();
-            //var fileLocation = "c:\\test\\" + filnanvn + ".png";
-            //imageEncoded.Save(fileLocation, ImageFormat.Png);
+
             var photo = new Photo
                             {
                                 Filename = filnanvn + ".png",
                                 Format = "Image/Png",
                                 Name = title,
-                                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(400, 600), ImageFormat.Png)),
+                                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(640, 480), ImageFormat.Png)),
                             };
             _db.Photos.Add(photo);
             _db.SaveChanges();
 
             imageEncoded.Dispose();
 
-            return new JsonResult { Data = new { success = true, name = "" } };  
+            return new JsonResult { Data = new { success = true, message = "Correct codeword, image uploaded." } };  
         }
         public static byte[] ReadFully(Stream input)
         {

@@ -41,6 +41,15 @@
                 </div>
             </div>
         </div>*@
+        
+        <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+            <label for="employee">
+                Who is it?
+            </label>
+             @Html.DropDownList("EmployeeId", "Choose a Ciberemployee")
+        </fieldset>
+    </div>
 
         <div class="editor-label">
             What is the secret codeword?

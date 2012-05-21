@@ -27,6 +27,8 @@ namespace CiberNdc.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsActive { get; set; }
+        public string Codeword { get; set; }
         public virtual Collection<Photo> Photos { get; set; }
     }
     

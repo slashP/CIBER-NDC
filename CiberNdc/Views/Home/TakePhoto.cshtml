@@ -1,12 +1,25 @@
-﻿@model dynamic
+﻿@using System.Collections
+@model dynamic
 
 @{
     ViewBag.Title = "Take photo";
+    
+    ArrayList employees = new ArrayList();
+
+    foreach (var item in ViewBag.Employees)
+    {                           
+        var employee = new 
+        {             
+            Name = item.Name,
+            Id = item.Id
+        };
+
+        employees.Add(employee);
+    } 
 }
 
 <script src="/Scripts/knockout.js"></script>
 <script src="/Scripts/jquery-1.6.4.js"></script>
-<script src="/Scripts/workspaceViewModel.js"></script>
 <script src="/Scripts/custom/videoInit.js"></script>
 <script src="/Scripts/custom/takePicture.js"></script>
 <script src="/Scripts/custom/message.js"></script>
@@ -14,10 +27,10 @@
 <div data-role="content">
     <div class="msg-holder" data-bind="visible: showMsg()" >
         <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-            <h2>Failure</h2>
+            <h2>Failure: <span data-bind="text: message"></span></h2>
         </div>
         <div data-bind="message: success,visible: success" class='success-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-            <h2>Success! <span data-bind="text: name"></span></h2>
+            <h2>Success: <span data-bind="text: message"></span></h2>
         </div>
     </div>
     <div id="loading" data-bind="visible: loading">
@@ -25,6 +38,16 @@
     </div>
     <video autoplay data-bind="videoInit: 'null'"></video>
     <canvas width="480" height="640" style="display:none;"></canvas>
+    
+    <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+            <label for="employee">
+                Who is it?
+            </label>
+             @*@Html.DropDownList("EmployeeId", "Choose a Ciberemployee")*@
+            <select data-bind="options: employees, optionsText: 'Name', value: selectedEmployee"></select>
+        </fieldset>
+    </div>
 
     <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
@@ -37,6 +60,81 @@
     <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
 </div>
 <script>
+    function workspaceViewModel () {
+
+        var self = this;
+
+        self.stream = null;
+        self.imageData = ko.observable();
+        self.url = '/Home/Test/';
+        self.success = ko.observable(false);
+        self.failure = ko.observable(false);
+        self.loading = ko.observable(false);
+        
+        var json = new Object();
+        self.message = ko.observable('');
+        self.codeword = ko.observable('codeword');
+        var orgEmployees = @Html.Raw(Json.Encode(employees));
+        
+        self.employees = ko.observableArray(orgEmployees);
+        self.selectedEmployee = ko.observable();
+
+        self.imageData.subscribe(function (value) {
+
+            json.image = value;
+            json.codeword = self.codeword();
+            json.employeeId = self.selectedEmployee().Id;
+            self.failure(false);
+            self.success(false);
+            $.ajax({
+                url: self.url,
+                type: 'post',
+                beforeSend: function () { self.loading(true); },
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(json),
+                success: self.successCallback,
+                error: self.errorCallback
+            });
+        });
+
+
+        this.successCallback = function (data) {
+
+            self.message('');
+
+            self.loading(false);
+
+            if (data.success) {
+                self.message(data.message);
+                self.success(true);
+                self.failure(false);
+            }
+            else if(data.warning) {
+                self.message(data.message);
+                self.success(false);
+                self.failure(true);
+            }
+            else {
+                self.message("Something went wrong!");
+                self.failure(true);
+                self.success(false);
+
+            }
+        };
+
+        this.errorCallback = function (data) {
+            self.loading(false);
+            alert('Something went wrong');
+        };
+
+
+        this.showMsg = function () {
+            self.loading(false);
+            return self.success() || self.failure();
+
+        };
+    };
+    
     $(document).ready(function () {
         var workspace = new workspaceViewModel();
         $(function () {
