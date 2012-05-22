@@ -9,7 +9,6 @@ using CiberNdc.Models;
 
 namespace CiberNdc.Controllers
 {
-
     [Authorize]
     public class AccountController : Controller
     {

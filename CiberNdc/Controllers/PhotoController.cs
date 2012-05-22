@@ -11,104 +11,109 @@ using CiberNdc.Context;
 namespace CiberNdc.Controllers
 {
     [Authorize]
-    public class EmployeesController : Controller
+    public class PhotoController : Controller
     {
         private DataContext db = new DataContext();
 
         //
-        // GET: /Employees/
+        // GET: /Photo/
 
         public ActionResult Index()
         {
-            return View(db.Employees.ToList());
+            var photos = db.Photos.Include(p => p.Employee);
+            return View(photos.ToList());
         }
 
         //
-        // GET: /Employees/Details/5
+        // GET: /Photo/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Photo photo = db.Photos.Find(id);
+            if (photo == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(photo);
         }
 
         //
-        // GET: /Employees/Create
+        // GET: /Photo/Create
 
         public ActionResult Create()
         {
+            ViewBag.EmployeeId = new SelectList(db.Employees, "Id", "Name");
             return View();
         }
 
         //
-        // POST: /Employees/Create
+        // POST: /Photo/Create
 
         [HttpPost]
-        public ActionResult Create(Employee employee)
+        public ActionResult Create(Photo photo)
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
+                db.Photos.Add(photo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(employee);
+            ViewBag.EmployeeId = new SelectList(db.Employees, "Id", "Name", photo.EmployeeId);
+            return View(photo);
         }
 
         //
-        // GET: /Employees/Edit/5
+        // GET: /Photo/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Photo photo = db.Photos.Find(id);
+            if (photo == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            ViewBag.EmployeeId = new SelectList(db.Employees, "Id", "Name", photo.EmployeeId);
+            return View(photo);
         }
 
         //
-        // POST: /Employees/Edit/5
+        // POST: /Photo/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Employee employee)
+        public ActionResult Edit(Photo photo)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
+                db.Entry(photo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            ViewBag.EmployeeId = new SelectList(db.Employees, "Id", "Name", photo.EmployeeId);
+            return View(photo);
         }
 
         //
-        // GET: /Employees/Delete/5
+        // GET: /Photo/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Employee employee = db.Employees.Find(id);
-            if (employee == null)
+            Photo photo = db.Photos.Find(id);
+            if (photo == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(photo);
         }
 
         //
-        // POST: /Employees/Delete/5
+        // POST: /Photo/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
+            Photo photo = db.Photos.Find(id);
+            db.Photos.Remove(photo);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

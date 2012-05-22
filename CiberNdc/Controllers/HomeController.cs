@@ -21,7 +21,6 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            //var photos = _db.Photos.Where(x => !String.IsNullOrEmpty(x.Name) && !String.IsNullOrEmpty(x.Employee.Name)).OrderBy(x => x.Id);
             var employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos);
             return View(employees.ToList());
         }
@@ -41,7 +40,7 @@ namespace CiberNdc.Controllers
         public ActionResult ExampleTrain()
         {
             var api = new FaceRestApi("b4549baa666b73e816abbbc41d3e35f3", "899018b403eba1c995b964b29e8a57b1",
-                                      string.Empty, false, "image/png", null, null);
+                                      string.Empty, false, "", null, null);
             var uids = new List<string> {"p-k@ciberndc.apphb.com", "samson@ciberndc.apphb.com"};
             var urls = new List<string> { "http://cdn.eurweb.com/wp-content/uploads/2011/06/Halle-Berry.jpg" };
             var asdf = api.FacesDetect(urls, "", null, null, null);
@@ -55,7 +54,7 @@ namespace CiberNdc.Controllers
         public ActionResult ExampleRecognize()
         {
              var api = new FaceRestApi("b4549baa666b73e816abbbc41d3e35f3", "899018b403eba1c995b964b29e8a57b1",
-                                      string.Empty, false, "image/png", null, null);
+                                      string.Empty, false, "", null, null);
             var uids = new List<string> {"p-k@ciberndc.apphb.com", "samson@ciberndc.apphb.com"};
             var urls = new List<string> { "http://stickerpeckout.com/wp-content/uploads/2010/01/Halle-Berry-Golden-Globes-2010-boobies-726x1024.jpg" };
             var asdf = api.FacesRecognize(urls, new List<string> { "my@ciberndc.apphb.com" }, "ciberndc.apphb.com", "", "", null, null, null);//.FacesDetect(urls, "", null, null, null);
@@ -69,13 +68,12 @@ namespace CiberNdc.Controllers
                     }
                 }
             }
-            //api.FacesRecognize(urls, uids, "ciberndc.apphb.com", null, null, null, null, null);
             return null;
         }
 
         public ActionResult UploadPhoto(string warning, string success)
         {
-            ViewBag.EmployeeId = new SelectList(_db.Employees.Where(x => x.IsActive == true), "Id", "Name");
+            ViewBag.EmployeeId = new SelectList(_db.Employees.Where(x => x.IsActive), "Id", "Name");
             ViewBag.Warning = warning;
             ViewBag.Success = success;
             return View();
@@ -100,7 +98,7 @@ namespace CiberNdc.Controllers
             {
                 var im = Image.FromStream(image.InputStream);
                 var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
-                var newImage = ImageUtil.ResizeImage(im, new Size(640, 480), imageFormat);
+                var newImage = im.ResizeImage(new Size(640, 480), imageFormat);
                 var title = employee.Name + "-" + DateTime.Now.ToString("MM.dd HH:mm");
 
                 var photo = new Photo()
@@ -143,10 +141,10 @@ namespace CiberNdc.Controllers
 
             var photo = new Photo
                             {
-                                Filename = filnanvn + ".png",
-                                Format = "Image/Png",
+                                Filename = filnanvn + ".jpg",
+                                Format = "Image/jpg",
                                 Name = title,
-                                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(640, 480), ImageFormat.Png)),
+                                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(640, 480), ImageFormat.Jpeg)),
                                 Employee = employee
                             };
             employee.Photos.Add(photo); //funkar dette då?

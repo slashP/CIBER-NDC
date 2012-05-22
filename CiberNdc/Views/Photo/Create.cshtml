@@ -1,0 +1,58 @@
+﻿@model CiberNdc.Models.Photo
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Photo</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Filename)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Filename)
+            @Html.ValidationMessageFor(model => model.Filename)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Format)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Format)
+            @Html.ValidationMessageFor(model => model.Format)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EmployeeId, "Employee")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("EmployeeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.EmployeeId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
