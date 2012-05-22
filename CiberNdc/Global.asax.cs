@@ -49,10 +49,11 @@ namespace CiberNdc
             BundleTable.Bundles.EnableDefaultBundles();
 
             var conf = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
-            var connstring = conf.ConnectionStrings.ConnectionStrings["DataContext"].ConnectionString;
+            const string datacontext = "DataContext";
+            var connstring = conf.ConnectionStrings.ConnectionStrings[datacontext].ConnectionString;
             if (connstring.Contains("MultipleActiveResultSets=True;")) return;
             connstring += "MultipleActiveResultSets=True;";
-            conf.ConnectionStrings.ConnectionStrings["FootyFeudContext"].ConnectionString = connstring;
+            conf.ConnectionStrings.ConnectionStrings[datacontext].ConnectionString = connstring;
             conf.Save();
         }
     }
