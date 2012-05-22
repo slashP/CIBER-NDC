@@ -36,13 +36,13 @@ namespace CiberNdc
 
         protected void Application_Start()
         {
-            var conf = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
-            const string datacontext = "DataContext";
-            var connstring = conf.ConnectionStrings.ConnectionStrings[datacontext].ConnectionString;
-            if (connstring.Contains("MultipleActiveResultSets=True;")) return;
-            connstring += "MultipleActiveResultSets=True;";
-            conf.ConnectionStrings.ConnectionStrings[datacontext].ConnectionString = connstring;
-            conf.Save();
+        //    var conf = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~");
+        //    const string datacontext = "DataContext";
+        //    var connstring = conf.ConnectionStrings.ConnectionStrings[datacontext].ConnectionString;
+        //    if (connstring.Contains("MultipleActiveResultSets=True;")) return;
+        //    connstring += "MultipleActiveResultSets=True;";
+        //    conf.ConnectionStrings.ConnectionStrings[datacontext].ConnectionString = connstring;
+        //    conf.Save();
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
