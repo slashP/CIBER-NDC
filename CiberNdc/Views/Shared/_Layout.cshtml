@@ -4,9 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/Content/css")" rel="stylesheet" type="text/css" />
-    <link href="~/Content/metro/metro.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/metro/metro.css" rel="stylesheet" type="text/css"/>
+    <link href="~/Content/metro/metrojs.css" rel="stylesheet" type="text/css"/>
+
     @Html.Partial("_DesktopScripts")
+
 </head>
     <body>
         <div>@Html.Partial("_ViewSwitcher")</div>

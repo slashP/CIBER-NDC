@@ -1,25 +1,32 @@
-﻿@model IEnumerable<CiberNdc.Models.Photo>
+﻿@using System.Collections
+@model IEnumerable<CiberNdc.Models.Employee>
 @{
     ViewBag.Title = "CIBER @ NDC";
 }
 
 
-<div class="page-header" style="text-align: center; margin-bottom: 50px;">
-    <h1>@ViewBag.Title</h1>
-</div>
-<div class="tiles well" style="text-align: center; margin: 10px auto">
-    <div class="tilerow">
-        <div class="tile one greenbg"><a href="#"></a><img src="~/Content/images/slow-and-steady-wins-the-race.jpg" alt=""/></div>
-        <div class="tile one redbg"><a href="#"><span style="font-size: 1.4em;">Take picture</span></a></div>
+<div id="tiles" class="blue">
+    <div class="green live-tile exclude">
+        <span class="tile-title">Upload your own photos of us!</span>
+        <h3 style="text-align: center">@ViewBag.Title</h3>
     </div>
-
-    <div class="tilerow">
-        @foreach (var photo in Model)
-        {
-            var randomBackground = photo.RandomBackgroundColor();
-            <div class="tile one @randomBackground"><a href="#"></a><img src="/Home/GetImage/@photo.Id" alt=""/></div>
-        }
-    </div>
+    @foreach (var e in Model)
+    {
+        <div class="live-tile purple" data-mode="flip" data-delay="5000">
+            @foreach (var photo in e.Photos)
+            {
+                <div>
+                    <img src="/Home/GetImage/@photo.Id"/>
+                    <a class="tile-title">@photo.Employee.Name</a>
+                </div>
+            }
+        </div>
+    }
 </div>
 
 <script src="~/Scripts/metro/jquery.metro.js"></script>
+<script type="text/javascript">
+    // apply regular slide universally unless .exclude class is applied 
+    // NOTE: The default options for each liveTile are being pulled from the 'data-' attributes
+    $(".live-tile, .flip-list").not(".exclude").liveTile();
+</script>

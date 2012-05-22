@@ -186,7 +186,11 @@
     <Content Include="Content\metro\fonts\Roboto-Light-webfont.svg" />
     <Content Include="Content\metro\fonts\Roboto-Regular-webfont.svg" />
     <Content Include="Content\images\slow-and-steady-wins-the-race.jpg" />
+    <Content Include="Content\metro\images\1pixel.gif" />
+    <Content Include="Content\metro\images\metroIcons.jpg" />
+    <Content Include="Content\metro\images\metroIcons_light.jpg" />
     <Content Include="Content\metro\metro.css" />
+    <Content Include="Content\metro\metrojs.css" />
     <Content Include="Content\Site.Mobile.css" />
     <Content Include="EntityFramework.Migrations.ReadMe.txt" />
     <Content Include="Global.asax" />
@@ -200,6 +204,7 @@
     <Content Include="Scripts\custom\message.js" />
     <Content Include="Scripts\custom\takePicture.js" />
     <Content Include="Scripts\custom\videoInit.js" />
+    <Content Include="Scripts\metro\metrojs.js" />
     <Content Include="Scripts\vs\jquery-1.6.2-vsdoc.js" />
     <Content Include="Scripts\metro\jquery.metro.js" />
     <Content Include="Scripts\vs\jquery.validate-vsdoc.js" />

@@ -20,8 +20,9 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            var photos = _db.Photos.Where(x => !String.IsNullOrEmpty(x.Name)).OrderBy(x => x.Id).Skip(Math.Max(0, _db.Photos.Count() - 8)).Take(16);
-            return View(photos);
+            //var photos = _db.Photos.Where(x => !String.IsNullOrEmpty(x.Name) && !String.IsNullOrEmpty(x.Employee.Name)).OrderBy(x => x.Id);
+            var employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive == true);
+            return View(employees);
         }
 
         public ActionResult GetImage(int id)
@@ -71,7 +72,8 @@ namespace CiberNdc.Controllers
                                     Filename = image.FileName,
                                     Format = imageFormat.ToString(),
                                     Name = title,
-                                    ImageStream = ReadFully(newImage)
+                                    ImageStream = ReadFully(newImage),
+                                    Employee = employee
                                  };
                  _db.Photos.Add(photo);
                  _db.SaveChanges();
@@ -109,7 +111,9 @@ namespace CiberNdc.Controllers
                                 Format = "Image/Png",
                                 Name = title,
                                 ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(640, 480), ImageFormat.Png)),
+                                Employee = employee
                             };
+            employee.Photos.Add(photo); //funkar dette då?
             _db.Photos.Add(photo);
             _db.SaveChanges();
 
