@@ -5,23 +5,58 @@
 }
 
 
-<div id="tiles" class="blue">
+<div id="tile" class="tiles blue" data-mode="flip" data-delay="5000">
     <div class="green live-tile exclude">
-        <span class="tile-title">Upload your own photos of us!</span>
-        <h3 style="text-align: center">@ViewBag.Title</h3>
+        <h3><span class="tile-title">Use your phone to upload photos of Ciber-employees at NDC and win nice prizes!</span></h3>
+        <h1 style="text-align: center">@ViewBag.Title</h1>
     </div>
-    @foreach (var e in Model)
+    
+    @{ var delay = 0; }
+    @foreach (var employee in Model)
     {
-        <div class="live-tile purple" data-mode="flip" data-delay="5000">
-            @foreach (var photo in e.Photos)
-            {
+        delay += 300;
+        if (employee.Photos.Count < 3)
+        {
+            <div class="live-tile" data-mode="flip" data-delay="5000" data-initdelay="@delay">
+                @foreach (var photo in employee.Photos)
+                {
                 <div>
                     <img src="/Home/GetImage/@photo.Id"/>
                     <a class="tile-title">@photo.Employee.Name</a>
                 </div>
-            }
+                }
+            </div>
+        }
+        else if (employee.Photos.Count < 9)
+        {
+            <div class="purple list-tile">
+            <span class="tile-title">@employee.Name</span>
+            @{var altId = 1;}
+            <ul class="flip-list fourTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
+                @foreach (var photo in employee.Photos)
+                {
+                    <li><div><img src="/Home/GetImage/@photo.Id" alt="@altId" /></div></li>
+                    altId += 1;
+                }
+            </ul>
         </div>
+        }
+        else
+        {
+            <div class="blue list-tile">
+            <span class="tile-title">@employee.Name</span>
+            @{var altId = 1;}
+            <ul class="flip-list nineTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
+                @foreach (var photo in employee.Photos)
+                {
+                    <li><div><img src="/Home/GetImage/@photo.Id" alt="@altId" /></div></li>
+                    altId += 1;
+                }
+            </ul>
+        </div>
+        }
     }
+    
 </div>
 
 <script src="~/Scripts/metro/jquery.metro.js"></script>
