@@ -263,7 +263,7 @@ img.full , a.full
 }
 .flip-list.nineTiles>li,.flip-list.nineTiles>li>div,.flip-list.nineTiles>li>div>img,.flip-list.nineTiles>li>div>a 
 { 
-	height:60px; width:60px; border:none; padding:0; margin:0; 
+	height:120px; width:120px; border:none; padding:0; margin:0; 
 }
 .nineTiles1  { background-position: 0px 0px; }
 .nineTiles2  { background-position: -60px 0px; }

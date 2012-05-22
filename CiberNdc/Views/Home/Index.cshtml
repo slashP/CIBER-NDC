@@ -43,10 +43,11 @@
         }
         else
         {
-            <div class="blue list-tile">
+            {
+            <div class="purple list-tile">
             <span class="tile-title">@employee.Name</span>
             @{var altId = 1;}
-            <ul class="flip-list nineTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
+            <ul class="flip-list fourTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
                 @foreach (var photo in employee.Photos)
                 {
                     <li><div><img src="/Home/GetImage/@photo.Id" alt="@altId" /></div></li>
@@ -54,6 +55,7 @@
                 }
             </ul>
         </div>
+        }
         }
     }
     
