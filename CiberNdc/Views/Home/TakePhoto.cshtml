@@ -3,19 +3,6 @@
 
 @{
     ViewBag.Title = "Take photo";
-    
-    ArrayList employees = new ArrayList();
-
-    foreach (var item in ViewBag.Employees)
-    {                           
-        var employee = new 
-        {             
-            Name = item.Name,
-            Id = item.Id
-        };
-
-        employees.Add(employee);
-    } 
 }
 
 <script src="/Scripts/knockout.js"></script>
@@ -39,15 +26,6 @@
     <video autoplay data-bind="videoInit: 'null'"></video>
     <canvas width="480" height="640" style="display:none;"></canvas>
     
-    @*<div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
-            <label for="employee">
-                Who is it?
-            </label>
-            <select data-bind="options: employees, optionsText: 'Name', value: selectedEmployee"></select>
-        </fieldset>
-    </div>*@
-
     <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
             <label for="codeword">
@@ -65,7 +43,7 @@
 
         self.stream = null;
         self.imageData = ko.observable();
-        self.url = '/Home/Test/';
+        self.url = '/Home/UploadAndRecognize/';
         self.success = ko.observable(false);
         self.failure = ko.observable(false);
         self.loading = ko.observable(false);
@@ -73,16 +51,11 @@
         var json = new Object();
         self.message = ko.observable('');
         self.codeword = ko.observable('codeword');
-        //var orgEmployees = @Html.Raw(Json.Encode(employees));
-        
-        //self.employees = ko.observableArray(orgEmployees);
-        //self.selectedEmployee = ko.observable();
 
         self.imageData.subscribe(function (value) {
 
             json.image = value;
             json.codeword = self.codeword();
-            //json.employeeId = self.selectedEmployee().Id;
             self.failure(false);
             self.success(false);
             $.ajax({

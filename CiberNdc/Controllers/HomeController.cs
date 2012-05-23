@@ -16,6 +16,8 @@ namespace CiberNdc.Controllers
     public class HomeController : Controller
     {
         private readonly DataContext _db = new DataContext();
+        private readonly FaceRestApi _api = new FaceRestApi("50361475f52d1637dfdcf01802536f31", "e5190fd0d963c89b272c1b79f8c1fb17",
+            string.Empty, false, "", null, null);
 
         // GET: /Home/
 
@@ -83,6 +85,67 @@ namespace CiberNdc.Controllers
 
              return RedirectToAction("UploadPhoto", new {failure = "Something went wrong!"});
          }
+        [HttpPost]
+        public ActionResult UploadAndRecognize(string image, string codeword)
+        {
+            var req = codeword == "reqognize";
+            var filnanvn = "test-" + DateTime.Now.ToFileTime();
+            var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
+            var splitted = image.Split(',')[1];
+            var imageEncoded = Base64ToImage(splitted);
+
+            var photo = new Photo
+            {
+                Filename = filnanvn + ".jpg",
+                Format = "Image/jpg",
+                Name = title,
+                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(640, 480), ImageFormat.Jpeg)),
+                Employee = null
+            };
+
+            _db.Photos.Add(photo);
+            _db.SaveChanges();
+            imageEncoded.Dispose();
+
+            if (req)
+            {
+                var e = Recognize(photo.Id);
+                if (e != null)
+                    return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e.Name } };
+                return new JsonResult { Data = new { success = true, message = "Image uploaded, but person not recognized!" } };
+            }
+            return new JsonResult { Data = new { success = true, message = "Image uploaded!" } };
+        }
+
+        private Employee Recognize(int photoId)
+        {
+            Employee recognizedEmployee = null;
+            var photo = _db.Photos.Find(photoId);
+            if (photo == null)
+                return null;
+
+            var uids = _db.Employees.Select(emp => emp.Name + "@ndcwebapp.apphb.com").ToList();
+            var urls = new List<string> { "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id };
+            var asdf = _api.FacesRecognize(urls, uids, "ndcwebapp.apphb.com", "", "", null, null, null);
+            var firstOrDefault = asdf.Photos.FirstOrDefault();
+            float conf = 0;
+
+            var uid = new FaceRestApi.UID();
+
+            if (firstOrDefault != null)
+            {
+                var orDefault = firstOrDefault.Tags.FirstOrDefault();
+                if (orDefault != null)
+                {
+                    uid = orDefault.uids.FirstOrDefault();
+                    if (uid != null)
+                    {
+                        recognizedEmployee = (Employee) _db.Employees.Where(e => uid.uid.ToUpper().Contains(e.Name));
+                    }
+                }
+            }
+            return recognizedEmployee;
+        }
 
         [HttpPost]
         public ActionResult Test(string image, string codeword, string employeeId)
