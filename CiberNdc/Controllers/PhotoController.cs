@@ -93,6 +93,7 @@ namespace CiberNdc.Controllers
                 p.Name = photo.Name;
                 p.Filename = photo.Filename;
                 p.Format = photo.Format;
+                p.Employee.Photos.Add(photo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
