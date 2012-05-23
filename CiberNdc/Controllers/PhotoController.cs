@@ -18,9 +18,11 @@ namespace CiberNdc.Controllers
         //
         // GET: /Photo/
 
-        public ActionResult Index()
+        public ActionResult Index(int? employeeId)
         {
             var photos = db.Photos.Include(p => p.Employee);
+            if (employeeId != null)
+                photos = db.Photos.Where(p => p.EmployeeId == employeeId);
             return View(photos.ToList());
         }
 
