@@ -88,11 +88,11 @@ namespace CiberNdc.Controllers
         [HttpPost]
         public ActionResult UploadAndRecognize(string image, string codeword)
         {
-            var req = codeword == "reqognize";
             var filnanvn = "test-" + DateTime.Now.ToFileTime();
             var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
             var splitted = image.Split(',')[1];
             var imageEncoded = Base64ToImage(splitted);
+            var recognize = codeword != "ignore";
 
             var photo = new Photo
             {
@@ -107,19 +107,24 @@ namespace CiberNdc.Controllers
             _db.SaveChanges();
             imageEncoded.Dispose();
 
-            if (req)
+            if (recognize)
             {
                 var e = Recognize(photo.Id);
                 if (e != null)
-                    return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e } };
+                {
+                    var p = _db.Photos.Find(photo.Id);
+                    p.Employee = e;
+                    p.Name = p.Name.Replace("MisterX", e.Name + "(recognizedByComputer)");
+                    _db.SaveChanges();
+                    return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e.Name } };
+                }
                 return new JsonResult { Data = new { success = true, message = "Image uploaded, but person not recognized!" } };
             }
             return new JsonResult { Data = new { success = true, message = "Image uploaded!" } };
         }
 
-        private string Recognize(int photoId)
+        private Employee Recognize(int photoId)
         {
-            string recognizedEmployee = null;
             var photo = _db.Photos.Find(photoId);
             if (photo == null)
                 return null;
@@ -140,11 +145,15 @@ namespace CiberNdc.Controllers
                     uid = orDefault.uids.FirstOrDefault();
                     if (uid != null)
                     {
-                        recognizedEmployee = uid.uid;
+                        foreach (var employee in _db.Employees)
+                        {
+                            if (uid.uid.Contains(employee.Name))
+                                return employee;
+                        }
                     }
                 }
             }
-            return recognizedEmployee;
+            return null;
         }
 
         [HttpPost]

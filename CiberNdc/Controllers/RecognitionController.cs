@@ -28,7 +28,7 @@ namespace CiberNdc.Controllers
             var detection = _api.FacesDetect(urls, "", null, null, null);
             var traint = _api.FacesTrain(uids, "ndcwebapp.apphb.com", "");
 
-            return null;
+            return RedirectToAction("index", "Photo");
         }
 
         public ActionResult Recognize(int photoId)
@@ -41,23 +41,21 @@ namespace CiberNdc.Controllers
             var urls = new List<string> { "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id };
             var asdf = _api.FacesRecognize(urls, uids, "ndcwebapp.apphb.com", "", "", null, null, null);
             var firstOrDefault = asdf.Photos.FirstOrDefault();
-            float conf = 0;
-
-            var uid = new FaceRestApi.UID();
 
             if (firstOrDefault != null)
             {
                 var orDefault = firstOrDefault.Tags.FirstOrDefault();
                 if (orDefault != null)
                 {
-                    uid = orDefault.uids.FirstOrDefault();
+                    var uid = orDefault.uids.FirstOrDefault();
                     if (uid != null)
                     {
-                        conf = uid.confidence;
+                        ViewBag.recongizedEmployee = uid.uid + "(" + uid.confidence + ")";
+                        return View();
                     }
                 }
             }
-            ViewBag.recongizedEmployee = uid.uid + "(" + uid.confidence + ")";
+            ViewBag.recongizedEmployee = "None recognized!";
             return View();
         }
 
@@ -72,7 +70,7 @@ namespace CiberNdc.Controllers
             var detection = _api.FacesDetect(urls, "", null, null, null);
             var traint = _api.FacesTrain(uids, "ndcwebapp.apphb.com", "");
 
-            return null;
+            return RedirectToAction("index", "Employees");
         }
     }
 }
