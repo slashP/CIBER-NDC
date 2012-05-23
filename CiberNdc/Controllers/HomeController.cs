@@ -85,6 +85,7 @@ namespace CiberNdc.Controllers
 
              return RedirectToAction("UploadPhoto", new {failure = "Something went wrong!"});
          }
+
         [HttpPost]
         public ActionResult UploadAndRecognize(string image, string codeword)
         {
@@ -104,21 +105,34 @@ namespace CiberNdc.Controllers
             };
 
             _db.Photos.Add(photo);
-            _db.SaveChanges();
+            _db.SaveChanges(); //Må lagre det her for å hente det ut att på nytt.
             imageEncoded.Dispose();
 
             if (recognize)
             {
                 var e = Recognize(photo.Id);
-                if (e != null)
+
+                if (e == null)
                 {
-                    var p = _db.Photos.Find(photo.Id);
-                    p.Employee = e;
-                    p.Name = p.Name.Replace("MisterX", e.Name + "(recognizedByComputer)");
+                    _db.Photos.Remove(photo);
                     _db.SaveChanges();
-                    return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e.Name } };
+                    return new JsonResult { Data = new { warning = true, message = "Person not recognized!" } };
                 }
-                return new JsonResult { Data = new { success = true, message = "Image uploaded, but person not recognized!" } };
+
+                if (e.Codeword.ToUpper() != codeword)
+                {
+                    _db.Photos.Remove(photo);
+                    _db.SaveChanges();
+                    return new JsonResult { Data = new { warning = true, message = "Person recognized, but wrong codeword!" } };
+                }
+                
+                var p = _db.Photos.Find(photo.Id);
+                p.Employee = e;
+                p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
+                _db.SaveChanges();
+                return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e.Name } };
+                
+
             }
             return new JsonResult { Data = new { success = true, message = "Image uploaded!" } };
         }
@@ -145,55 +159,13 @@ namespace CiberNdc.Controllers
                     uid = orDefault.uids.FirstOrDefault();
                     if (uid != null)
                     {
-                        foreach (var employee in _db.Employees)
-                        {
-                            if (uid.uid.Contains(employee.Name))
-                                return employee;
-                        }
+                        return Enumerable.FirstOrDefault(_db.Employees, employee => uid.uid.Contains(employee.Name));
                     }
                 }
             }
             return null;
         }
 
-        [HttpPost]
-        public ActionResult Test(string image, string codeword, string employeeId)
-        {
-            var employee = _db.Employees.Find(Convert.ToInt32(employeeId));
-            
-            if (String.IsNullOrEmpty(codeword))
-                return new JsonResult { Data = new { warning = true, message = "Fill in a codeword!" } };
-            
-            if (String.IsNullOrEmpty(employeeId))
-                return new JsonResult { Data = new { warning = true, message = "Choose an employee!" } };
-
-            if (employee == null)
-                return new JsonResult { Data = new { warning = true, message = "Employee not found!" } };
-
-            if (employee.Codeword.ToUpper() != codeword.ToUpper())
-                return new JsonResult { Data = new { warning = true, message = "Wrong codeword!" } };
-
-            var filnanvn = "test-" + DateTime.Now.ToFileTime();
-            var title = employee.Name + "-" + DateTime.Now.ToString("MM.dd HH:mm");
-            var splitted = image.Split(',')[1];
-            var imageEncoded = Base64ToImage(splitted);
-
-            var photo = new Photo
-                            {
-                                Filename = filnanvn + ".jpg",
-                                Format = "Image/jpg",
-                                Name = title,
-                                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(640, 480), ImageFormat.Jpeg)),
-                                Employee = employee
-                            };
-            employee.Photos.Add(photo); //funkar dette då?
-            _db.Photos.Add(photo);
-            _db.SaveChanges();
-
-            imageEncoded.Dispose();
-
-            return new JsonResult { Data = new { success = true, message = "Correct codeword, image uploaded." } };  
-        }
         public static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024 * 1024];
