@@ -111,15 +111,15 @@ namespace CiberNdc.Controllers
             {
                 var e = Recognize(photo.Id);
                 if (e != null)
-                    return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e.Name } };
+                    return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e } };
                 return new JsonResult { Data = new { success = true, message = "Image uploaded, but person not recognized!" } };
             }
             return new JsonResult { Data = new { success = true, message = "Image uploaded!" } };
         }
 
-        private Employee Recognize(int photoId)
+        private string Recognize(int photoId)
         {
-            Employee recognizedEmployee = null;
+            string recognizedEmployee = null;
             var photo = _db.Photos.Find(photoId);
             if (photo == null)
                 return null;
@@ -140,7 +140,7 @@ namespace CiberNdc.Controllers
                     uid = orDefault.uids.FirstOrDefault();
                     if (uid != null)
                     {
-                        recognizedEmployee = (Employee) _db.Employees.Where(e => uid.uid.ToUpper().Contains(e.Name));
+                        recognizedEmployee = uid.uid;
                     }
                 }
             }

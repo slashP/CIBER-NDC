@@ -87,7 +87,12 @@ namespace CiberNdc.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(photo).State = EntityState.Modified;
+                var p = db.Photos.Find(photo.Id);
+                p.Employee = photo.Employee;
+                p.EmployeeId = photo.EmployeeId;
+                p.Name = photo.Name;
+                p.Filename = photo.Filename;
+                p.Format = photo.Format;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
