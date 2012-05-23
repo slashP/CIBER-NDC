@@ -37,40 +37,6 @@ namespace CiberNdc.Controllers
             return View();
         }
 
-        public ActionResult ExampleTrain()
-        {
-            var api = new FaceRestApi("b4549baa666b73e816abbbc41d3e35f3", "899018b403eba1c995b964b29e8a57b1",
-                                      string.Empty, false, "", null, null);
-            var uids = new List<string> {"p-k@ciberndc.apphb.com", "samson@ciberndc.apphb.com"};
-            var urls = new List<string> { "http://cdn.eurweb.com/wp-content/uploads/2011/06/Halle-Berry.jpg" };
-            var asdf = api.FacesDetect(urls, "", null, null, null);
-            var tids = asdf.Photos.SelectMany(x => x.Tags).Select(x => x.tid).ToList();
-            var asdf23 = api.TagsSave(tids, "my@ciberndc.apphb.com", "", "");
-            var poiasdflkj = api.FacesTrain(new List<string> {"my@ciberndc.apphb.com"}, "ciberndc.apphb.com", "");
-            //api.FacesRecognize(urls, uids, "ciberndc.apphb.com", null, null, null, null, null);
-            return null;
-        }
-
-        public ActionResult ExampleRecognize()
-        {
-             var api = new FaceRestApi("b4549baa666b73e816abbbc41d3e35f3", "899018b403eba1c995b964b29e8a57b1",
-                                      string.Empty, false, "", null, null);
-            var uids = new List<string> {"p-k@ciberndc.apphb.com", "samson@ciberndc.apphb.com"};
-            var urls = new List<string> { "http://stickerpeckout.com/wp-content/uploads/2010/01/Halle-Berry-Golden-Globes-2010-boobies-726x1024.jpg" };
-            var asdf = api.FacesRecognize(urls, new List<string> { "my@ciberndc.apphb.com" }, "ciberndc.apphb.com", "", "", null, null, null);//.FacesDetect(urls, "", null, null, null);
-            var firstOrDefault = asdf.Photos.FirstOrDefault();
-            if (firstOrDefault != null) {
-                var orDefault = firstOrDefault.Tags.FirstOrDefault();
-                if (orDefault != null) {
-                    var uid = orDefault.uids.FirstOrDefault();
-                    if (uid != null) {
-                        var conf = uid.confidence;
-                    }
-                }
-            }
-            return null;
-        }
-
         public ActionResult UploadPhoto(string warning, string success)
         {
             ViewBag.EmployeeId = new SelectList(_db.Employees.Where(x => x.IsActive), "Id", "Name");

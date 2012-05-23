@@ -159,6 +159,7 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
+    <Compile Include="Controllers\RecognitionController.cs" />
     <Compile Include="Controllers\ViewSwitcherController.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />

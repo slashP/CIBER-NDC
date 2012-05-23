@@ -39,6 +39,7 @@
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
             @Html.ActionLink("Photos", "Index", "Photo", new { employeeId = item.Id }, null)
+            @Html.ActionLink("Train with all photos", "EmployeeBatchTrain", "Recognition", new { employeeId = item.Id }, null)
         </td>
     </tr>
 }
