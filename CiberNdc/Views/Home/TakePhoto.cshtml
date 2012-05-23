@@ -39,15 +39,14 @@
     <video autoplay data-bind="videoInit: 'null'"></video>
     <canvas width="480" height="640" style="display:none;"></canvas>
     
-    <div data-role="fieldcontain">
+    @*<div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
             <label for="employee">
                 Who is it?
             </label>
-             @*@Html.DropDownList("EmployeeId", "Choose a Ciberemployee")*@
             <select data-bind="options: employees, optionsText: 'Name', value: selectedEmployee"></select>
         </fieldset>
-    </div>
+    </div>*@
 
     <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
@@ -74,16 +73,16 @@
         var json = new Object();
         self.message = ko.observable('');
         self.codeword = ko.observable('codeword');
-        var orgEmployees = @Html.Raw(Json.Encode(employees));
+        //var orgEmployees = @Html.Raw(Json.Encode(employees));
         
-        self.employees = ko.observableArray(orgEmployees);
-        self.selectedEmployee = ko.observable();
+        //self.employees = ko.observableArray(orgEmployees);
+        //self.selectedEmployee = ko.observable();
 
         self.imageData.subscribe(function (value) {
 
             json.image = value;
             json.codeword = self.codeword();
-            json.employeeId = self.selectedEmployee().Id;
+            //json.employeeId = self.selectedEmployee().Id;
             self.failure(false);
             self.success(false);
             $.ajax({

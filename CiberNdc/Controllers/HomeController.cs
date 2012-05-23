@@ -37,6 +37,7 @@ namespace CiberNdc.Controllers
             return View();
         }
 
+        
         public ActionResult UploadPhoto(string warning, string success)
         {
             ViewBag.EmployeeId = new SelectList(_db.Employees.Where(x => x.IsActive), "Id", "Name");
