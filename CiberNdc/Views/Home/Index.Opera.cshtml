@@ -1,25 +1,34 @@
 ﻿@model IEnumerable<CiberNdc.Models.Employee>
 @{
-    ViewBag.Title = "Ciber @ NDC (Opera)"; 
+    ViewBag.Title = "Ciber @ NDC";
 }
 
 <div data-role="content">
-    <ul data-role="listview" data-inset="true" data-filter="true">
+    <ul data-role="listview" data-inset="true">
         @foreach (var employee in Model)
         {
-            var i = 1;
-            foreach (var bilde in employee.Photos)
-            {
-                if (i > 4) {continue;} 
+            <li class="item">
+                <img src="/Home/GetImage?id=@(employee.Photos[0].Id)" class="ui-li-thumb ui-corner-tl">
+                <h3 class="ui-li-heading">@employee.Name</h3>
+                <span class="ui-li-count ui-btn-up-c ui-btn-corner-all">@employee.Photos.Count</span>
+                <ol data-role="listview" data-inset="true" data-filter="false" data-split-theme="d" data-split-icon="search">
+                    @{
+                        var i = 1;  
+                    }
+                    @foreach (var bilde in employee.Photos)
+                    {
+                        //if (i > 6) { continue; } 
                     
-                <li class="item">
-                    <a href="/Home/GetImage?id=@(bilde.Id)">
-                        <img alt="@bilde.Name" src="/Home/GetImage?id=@(bilde.Id)" class="thumbnail-border" width="180" />
-                    </a>
-                    <span class="image-overlay">@employee.Name @i</span>
-                </li>
-                i++;
-            }
+                        <li class="item">
+                            <a href="/Home/GetImage?id=@(bilde.Id)">
+                                <img alt="@bilde.Name" src="/Home/GetImage?id=@(bilde.Id)" class="ui-li-thumb ui-corner-tl" width="180" />
+                            </a>
+                            <span class="image-overlay">@employee.Name @i</span>
+                        </li>
+                        i++;
+                    }
+                </ol>
+            </li>
         }
     </ul>
 </div>

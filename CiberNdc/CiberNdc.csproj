@@ -277,6 +277,7 @@
     <Content Include="Views\Photo\Edit.cshtml" />
     <Content Include="Views\Photo\Delete.cshtml" />
     <Content Include="Views\Recognition\Recognize.cshtml" />
+    <Content Include="Views\Shared\_AdminMenu.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

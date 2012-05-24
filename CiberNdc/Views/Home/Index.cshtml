@@ -37,7 +37,7 @@
                 {
                     continue;
                 }
-                <div class="live-tile" data-mode="flip" data-delay="5000" data-initdelay="@delay + i*300">
+                <div class="live-tile" data-mode="flip" data-delay="5000" data-initdelay="@(delay + i * 300)">
                     <div>
                         <img src="/Home/GetImage/@employee.Photos[i-1].Id"/>
                         <a class="tile-title">@employee.Name</a>
@@ -60,7 +60,7 @@
                     @foreach (var photo in employee.Photos)
                     {
                         <li><div><img src="/Home/GetImage/@photo.Id" alt="@altId" /></div></li>
-                        altId += 1;
+                        @(altId += 1);
                     }
                 </ul>
             </div>

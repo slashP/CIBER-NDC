@@ -96,7 +96,7 @@ namespace CiberNdc.Controllers
                      p.Employee = e;
                      p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
                      _db.SaveChanges();
-                     return RedirectToAction("UploadPhoto", new { success = "Correct codeword, photo of " + e.Name + "uploaded!" });
+                     return RedirectToAction("UploadPhoto", new { success = "Correct codeword, photo of " + e.Name + " uploaded!" });
 
                  }
              }
@@ -148,11 +148,11 @@ namespace CiberNdc.Controllers
                 p.Employee = e;
                 p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
                 _db.SaveChanges();
-                return new JsonResult { Data = new { success = true, message = "Image uploaded, person is " + e.Name } };
+                return new JsonResult { Data = new { success = true, message = "Correct codeword, photo of " + e.Name + " uploaded!" } };
                 
 
             }
-            return new JsonResult { Data = new { success = true, message = "Image uploaded!" } };
+            return new JsonResult { Data = new { success = true, message = "Image uploaded, no employee asigned." } };
         }
 
         private Employee Recognize(int photoId)
