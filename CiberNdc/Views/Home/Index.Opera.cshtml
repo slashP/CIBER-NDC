@@ -7,14 +7,18 @@
     <ul data-role="listview" data-inset="true" data-filter="true">
         @foreach (var employee in Model)
         {
+            var i = 1;
             foreach (var bilde in employee.Photos)
             {
+                if (i > 4) {continue;} 
+                    
                 <li class="item">
                     <a href="/Home/GetImage?id=@(bilde.Id)">
                         <img alt="@bilde.Name" src="/Home/GetImage?id=@(bilde.Id)" class="thumbnail-border" width="180" />
                     </a>
-                    <span class="image-overlay">@bilde.Name</span>
+                    <span class="image-overlay">@employee.Name @i</span>
                 </li>
+                i++;
             }
         }
     </ul>

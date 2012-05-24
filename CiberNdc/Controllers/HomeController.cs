@@ -49,41 +49,59 @@ namespace CiberNdc.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPhoto(int? employeeId, string codeword)
+        public ActionResult UploadPhoto(string codeword)
          {
-            if(employeeId == null)
-                return RedirectToAction("UploadPhoto", new { warning = "You have to choose an employee!" });
             if (String.IsNullOrEmpty(codeword))
                 return RedirectToAction("UploadPhoto", new { warning = "You have to fill in a codeword!" });
 
-            var employee = _db.Employees.Find(employeeId);
-
-            if (employee.Codeword.ToUpper() != codeword.ToUpper())
-                return RedirectToAction("UploadPhoto", new { warning = "Wrong codeword!" });
-
+            var recognize = codeword != "ignore";
             var image = Request.Files.Count > 0 ? Request.Files[0] : null;
 
             if (image != null && ImageUtil.AllowedImageTypes.Contains(image.ContentType))
             {
                 var im = Image.FromStream(image.InputStream);
                 var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
-                var newImage = im.ResizeImage(new Size(640, 480), imageFormat);
-                var title = employee.Name + "-" + DateTime.Now.ToString("MM.dd HH:mm");
+                var newImage = im.ResizeImage(new Size(480, 480), imageFormat);
+                var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
 
                 var photo = new Photo()
                                 {
                                     Filename = image.FileName,
                                     Format = imageFormat.ToString(),
                                     Name = title,
-                                    ImageStream = ReadFully(newImage),
-                                    Employee = employee
+                                    ImageStream = ReadFully(newImage)
                                  };
                  _db.Photos.Add(photo);
                  _db.SaveChanges();
-                 return RedirectToAction("UploadPhoto", new {success = "Correct codeword! Image uploaded!"});
+
+                 if (recognize)
+                 {
+                     var e = Recognize(photo.Id);
+
+                     if (e == null)
+                     {
+                         _db.Photos.Remove(photo);
+                         _db.SaveChanges();
+                         return RedirectToAction("UploadPhoto", new { failure = "Person not recognized!" });
+                     }
+
+                     if (e.Codeword.ToUpper() != codeword.ToUpper())
+                     {
+                         _db.Photos.Remove(photo);
+                         _db.SaveChanges();
+                         return RedirectToAction("UploadPhoto", new { failure = "Wrong codeword for " + e.Name + "!" });
+                     }
+
+                     var p = _db.Photos.Find(photo.Id);
+                     p.Employee = e;
+                     p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
+                     _db.SaveChanges();
+                     return RedirectToAction("UploadPhoto", new { success = true, message = "Correct codeword, photo of " + e.Name + "uploaded!" });
+
+                 }
              }
 
-             return RedirectToAction("UploadPhoto", new {failure = "Something went wrong!"});
+             return RedirectToAction("UploadPhoto", new {success = "Image uploaded, no employee asigned."});
          }
 
         [HttpPost]
@@ -100,7 +118,7 @@ namespace CiberNdc.Controllers
                 Filename = filnanvn + ".jpg",
                 Format = "Image/jpg",
                 Name = title,
-                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(640, 480), ImageFormat.Jpeg)),
+                ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(480, 480), ImageFormat.Jpeg)),
                 Employee = null
             };
 
@@ -119,7 +137,7 @@ namespace CiberNdc.Controllers
                     return new JsonResult { Data = new { warning = true, message = "Person not recognized!" } };
                 }
 
-                if (e.Codeword.ToUpper() != codeword)
+                if (e.Codeword.ToUpper() != codeword.ToUpper())
                 {
                     _db.Photos.Remove(photo);
                     _db.SaveChanges();

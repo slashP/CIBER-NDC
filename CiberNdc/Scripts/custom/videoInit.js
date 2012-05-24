@@ -1,10 +1,10 @@
 ﻿ko.bindingHandlers.videoInit = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         if (navigator.getUserMedia) {
-            navigator.getUserMedia({'video':true, 'hints': {'video': {'orientation': 'front'}}}, function (stream) {
+            navigator.getUserMedia({'video':true, 'audio':false}, function (raw) {
 
-                viewModel.stream = stream;
-                element.src = stream;
+                viewModel.stream = raw;
+                element.src = raw;
             });
         }
     }

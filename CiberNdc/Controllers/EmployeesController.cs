@@ -108,6 +108,12 @@ namespace CiberNdc.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = db.Employees.Find(id);
+
+            foreach (var photo in db.Photos.Where(x => x.EmployeeId == id))
+            {
+                db.Photos.Remove(photo);
+            }
+
             db.Employees.Remove(employee);
             db.SaveChanges();
             return RedirectToAction("Index");

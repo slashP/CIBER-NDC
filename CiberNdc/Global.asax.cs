@@ -50,7 +50,7 @@ namespace CiberNdc
             {
                 ContextCondition = context =>
                     context.Request.UserAgent != null &&
-                    context.Request.UserAgent.IndexOf("Opera", StringComparison.OrdinalIgnoreCase) >= 0
+                    (context.Request.UserAgent.IndexOf("Opera", StringComparison.OrdinalIgnoreCase) >= 0)
             });
             //BundleTable.Bundles.RegisterTemplateBundles();
             BundleTable.Bundles.EnableDefaultBundles();

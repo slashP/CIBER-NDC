@@ -26,33 +26,14 @@
 {
     <fieldset>
         <div class="editor-label">
-            Upload an image file
+            Choose an image of an employee
         </div>
         <div class="editor-field">
             <input type="file" name="fileUpload" id="fileUpload" /><br />
         </div>
-        @*<div class="row">
-            <div class="span3">
-                <div class="editor-label">
-                    Who is it?
-                </div>
-                <div id="album" class="editor-field">
-                    @Html.DropDownList("EmployeeId", "Velg ansatt")
-                </div>
-            </div>
-        </div>*@
         
-        <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
-            <label for="employee">
-                Who is it?
-            </label>
-             @Html.DropDownList("EmployeeId", "Choose an employee")
-        </fieldset>
-    </div>
-
         <div class="editor-label">
-            What is the secret codeword?
+            What is this person's codeword?
         </div>
         <div class="editor-field">
             <input id="codeword" name="codeword" type="text" />

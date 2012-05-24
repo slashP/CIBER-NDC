@@ -10,6 +10,7 @@
 <script src="/Scripts/custom/videoInit.js"></script>
 <script src="/Scripts/custom/takePicture.js"></script>
 <script src="/Scripts/custom/message.js"></script>
+<script src="/Scripts/custom/navigator.getusermedia.js"></script>
 
 <div data-role="content">
     <div class="msg-holder" data-bind="visible: showMsg()" >
@@ -23,8 +24,10 @@
     <div id="loading" data-bind="visible: loading">
         <img src="/Content/images/ajax-loader.png">
     </div>
-    <video autoplay data-bind="videoInit: 'null'"></video>
-    <canvas width="480" height="640" style="display:none;"></canvas>
+    <div class="purple-square">
+        <video style="margin-left: -80px" autoplay data-bind="videoInit: 'null'"></video>
+        <canvas style="margin-left: -80px" width="480" height="480" style="display:none;"></canvas>
+    </div>
     
     <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
