@@ -32,6 +32,8 @@ namespace CiberNdc.Controllers
             {
                 tids.AddRange(p.Tags.Select(t => t.tid));
             }
+            if (tids.Count == 0)
+                return null;
             _api.TagsSave(tids, uids.FirstOrDefault(), null, null);
             var traint = _api.FacesTrain(uids, "ndcwebapp.apphb.com", "");
 
