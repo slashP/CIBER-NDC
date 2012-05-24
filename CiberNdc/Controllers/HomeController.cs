@@ -57,51 +57,55 @@ namespace CiberNdc.Controllers
             var recognize = codeword != "ignore";
             var image = Request.Files.Count > 0 ? Request.Files[0] : null;
 
-            if (image != null && ImageUtil.AllowedImageTypes.Contains(image.ContentType))
-            {
-                var im = Image.FromStream(image.InputStream);
-                var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
-                var newImage = im.ResizeImage(new Size(480, 480), imageFormat);
-                var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
+            if(image == null)
+                return RedirectToAction("UploadPhoto", new { warning = "No image assigned!" });
 
-                var photo = new Photo()
-                                {
-                                    Filename = image.FileName,
-                                    Format = imageFormat.ToString(),
-                                    Name = title,
-                                    ImageStream = ReadFully(newImage)
-                                 };
-                 _db.Photos.Add(photo);
-                 _db.SaveChanges();
+            if(ImageUtil.AllowedImageTypes.Contains(image.ContentType))
+                return RedirectToAction("UploadPhoto", new { warning = "Not allowed imagetype! (" +image.ContentType + ")" });
 
-                 if (recognize)
-                 {
-                     var e = Recognize(photo.Id);
+            var im = Image.FromStream(image.InputStream);
+            var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
+            var newImage = im.ResizeImage(new Size(480, 480), imageFormat);
+            var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
 
-                     if (e == null)
-                     {
-                         _db.Photos.Remove(photo);
-                         _db.SaveChanges();
-                         return RedirectToAction("UploadPhoto", new { warning = "Person not recognized!" });
-                     }
+            var photo = new Photo()
+                            {
+                                Filename = image.FileName,
+                                Format = imageFormat.ToString(),
+                                Name = title,
+                                ImageStream = ReadFully(newImage)
+                                };
+                _db.Photos.Add(photo);
+                _db.SaveChanges();
 
-                     if (e.Codeword.ToUpper() != codeword.ToUpper())
-                     {
-                         _db.Photos.Remove(photo);
-                         _db.SaveChanges();
-                         return RedirectToAction("UploadPhoto", new { warning = "Wrong codeword for " + e.Name + "!" });
-                     }
+                if (recognize)
+                {
+                    var e = Recognize(photo.Id);
 
-                     var p = _db.Photos.Find(photo.Id);
-                     p.Employee = e;
-                     p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
-                     _db.SaveChanges();
-                     return RedirectToAction("UploadPhoto", new { success = "Correct codeword, photo of " + e.Name + " uploaded!" });
+                    if (e == null)
+                    {
+                        _db.Photos.Remove(photo);
+                        _db.SaveChanges();
+                        return RedirectToAction("UploadPhoto", new { warning = "Person not recognized!" });
+                    }
 
-                 }
-             }
+                    if (e.Codeword.ToUpper() != codeword.ToUpper())
+                    {
+                        _db.Photos.Remove(photo);
+                        _db.SaveChanges();
+                        return RedirectToAction("UploadPhoto", new { warning = "Wrong codeword for " + e.Name + "!" });
+                    }
 
-             return RedirectToAction("UploadPhoto", new {success = "Image uploaded, no employee asigned."});
+                    var p = _db.Photos.Find(photo.Id);
+                    p.Employee = e;
+                    p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
+                    _db.SaveChanges();
+                    return RedirectToAction("UploadPhoto", new { success = "Correct codeword, photo of " + e.Name + " uploaded!" });
+
+                }
+
+                return RedirectToAction("UploadPhoto", new { success = "Image uploaded, no employee asigned." });
+
          }
 
         [HttpPost]
