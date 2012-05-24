@@ -82,21 +82,21 @@ namespace CiberNdc.Controllers
                      {
                          _db.Photos.Remove(photo);
                          _db.SaveChanges();
-                         return RedirectToAction("UploadPhoto", new { failure = "Person not recognized!" });
+                         return RedirectToAction("UploadPhoto", new { warning = "Person not recognized!" });
                      }
 
                      if (e.Codeword.ToUpper() != codeword.ToUpper())
                      {
                          _db.Photos.Remove(photo);
                          _db.SaveChanges();
-                         return RedirectToAction("UploadPhoto", new { failure = "Wrong codeword for " + e.Name + "!" });
+                         return RedirectToAction("UploadPhoto", new { warning = "Wrong codeword for " + e.Name + "!" });
                      }
 
                      var p = _db.Photos.Find(photo.Id);
                      p.Employee = e;
                      p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
                      _db.SaveChanges();
-                     return RedirectToAction("UploadPhoto", new { success = true, message = "Correct codeword, photo of " + e.Name + "uploaded!" });
+                     return RedirectToAction("UploadPhoto", new { success = "Correct codeword, photo of " + e.Name + "uploaded!" });
 
                  }
              }
@@ -141,7 +141,7 @@ namespace CiberNdc.Controllers
                 {
                     _db.Photos.Remove(photo);
                     _db.SaveChanges();
-                    return new JsonResult { Data = new { warning = true, message = "Person recognized, but wrong codeword!" } };
+                    return new JsonResult { Data = new { warning = true, message = "Wrong codeword for " + e.Name + "!" } };
                 }
                 
                 var p = _db.Photos.Find(photo.Id);
@@ -165,16 +165,13 @@ namespace CiberNdc.Controllers
             var urls = new List<string> { "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id };
             var asdf = _api.FacesRecognize(urls, uids, "ndcwebapp.apphb.com", "", "", null, null, null);
             var firstOrDefault = asdf.Photos.FirstOrDefault();
-            float conf = 0;
-
-            var uid = new FaceRestApi.UID();
 
             if (firstOrDefault != null)
             {
                 var orDefault = firstOrDefault.Tags.FirstOrDefault();
                 if (orDefault != null)
                 {
-                    uid = orDefault.uids.FirstOrDefault();
+                    var uid  = orDefault.uids.FirstOrDefault();
                     if (uid != null)
                     {
                         return Enumerable.FirstOrDefault(_db.Employees, employee => uid.uid.Contains(employee.Name));
