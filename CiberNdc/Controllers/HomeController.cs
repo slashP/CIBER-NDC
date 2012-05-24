@@ -60,7 +60,7 @@ namespace CiberNdc.Controllers
             if(image == null)
                 return RedirectToAction("UploadPhoto", new { warning = "No image assigned!" });
 
-            if(ImageUtil.AllowedImageTypes.Contains(image.ContentType))
+            if(!ImageUtil.AllowedImageTypes.Contains(image.ContentType))
                 return RedirectToAction("UploadPhoto", new { warning = "Not allowed imagetype! (" +image.ContentType + ")" });
 
             var im = Image.FromStream(image.InputStream);
