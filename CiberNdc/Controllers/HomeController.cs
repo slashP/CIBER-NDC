@@ -68,13 +68,13 @@ namespace CiberNdc.Controllers
             var newImage = im.ResizeImage(new Size(480, 480), imageFormat);
             var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
 
-            var photo = new Photo()
+            var photo = new Photo
                             {
                                 Filename = image.FileName,
                                 Format = imageFormat.ToString(),
                                 Name = title,
                                 ImageStream = ReadFully(newImage)
-                                };
+                            };
                 _db.Photos.Add(photo);
                 _db.SaveChanges();
 
