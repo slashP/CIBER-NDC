@@ -1,15 +1,11 @@
 ﻿@model IEnumerable<CiberNdc.Models.Photo>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Photos";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Employees", "Index", "Employees") | 
-    @Html.ActionLink("All photos", "Index", "Photo")
-</p>
 <table>
     <tr>
         <th>

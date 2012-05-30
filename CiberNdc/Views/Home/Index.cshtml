@@ -21,7 +21,7 @@
                 @foreach (var photo in employee.Photos)
                 {
                     <div>
-                        <img src="/Home/GetImage/@photo.Id"/>
+                        <img src="/Home/GetImage?id=@photo.Id&size=360x360"/>
                         <a class="tile-title">@photo.Employee.Name</a>
                     </div>
                 }
@@ -39,11 +39,11 @@
                 }
                 <div class="live-tile" data-mode="flip" data-delay="5000" data-initdelay="@(delay + i * 300)">
                     <div>
-                        <img src="/Home/GetImage/@employee.Photos[i-1].Id"/>
+                        <img src="/Home/GetImage?id=@employee.Photos[i-1].Id&size=360x360"/>
                         <a class="tile-title">@employee.Name</a>
                     </div>
                     <div>
-                        <img src="/Home/GetImage/@employee.Photos[i].Id"/>
+                        <img src="/Home/GetImage?id=@employee.Photos[i].Id&size=360x360"/>
                         <a class="tile-title">@employee.Name</a>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <ul class="flip-list fourTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
                     @foreach (var photo in employee.Photos)
                     {
-                        <li><div><img src="/Home/GetImage/@photo.Id" alt="@altId" /></div></li>
+                        <li><div><img src="/Home/GetImage?id=@photo.Id&size=180x180" alt="@altId" /></div></li>
                         @(altId += 1);
                     }
                 </ul>
@@ -76,7 +76,7 @@
                     <ul class="flip-list nineTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
                         @foreach (var photo in employee.Photos)
                         {
-                            <li><div><img src="/Home/GetImage/@photo.Id" alt="@altId" /></div></li>
+                            <li><div><img src="/Home/GetImage?id=@photo.Id&size=120x120" alt="@altId" /></div></li>
                             altId += 1;
                         }
                     </ul>

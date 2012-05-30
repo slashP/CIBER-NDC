@@ -27,11 +27,23 @@ namespace CiberNdc.Controllers
             return View(employees.ToList());
         }
 
-        public ActionResult GetImage(int id)
+        public ActionResult GetImage(int id, string size)
         {
             var bilde = _db.Photos.Find(id);
+            if(size != null)
+            {
+                var s = size.Split('x');
+                if (s.Length == 2)
+                {
+                    var scalesize = new Size(Convert.ToInt32(s[0]), Convert.ToInt32(s[1])); 
+                    var scaled = ImageUtil.ResizeImage(ImageUtil.ByteArrayToImage(bilde.ImageStream), scalesize, ImageUtil.GetImageFormat(bilde.Format));
+                    return File(scaled, ImageUtil.GetImageContentType(bilde.Format));
+                }
+            }
+                
             return File(bilde.ImageStream, ImageUtil.GetImageContentType(bilde.Format));
         }
+
 
         public ActionResult TakePhoto()
         {
