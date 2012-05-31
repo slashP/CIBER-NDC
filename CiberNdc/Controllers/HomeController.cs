@@ -31,7 +31,12 @@ namespace CiberNdc.Controllers
         
         public ActionResult PhotoGrid(int? numberOfImages)
         {
-            return PartialView(IEnumerableRandomization.Randomize(_db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id)));
+            var employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos);
+            foreach (var employee in employees)
+            {
+                employee.Photos.OrderByDescending(y => y.Id);
+            }
+            return PartialView(IEnumerableRandomization.Randomize(employees));
         }
 
         public ActionResult GetMessage(int? id)
