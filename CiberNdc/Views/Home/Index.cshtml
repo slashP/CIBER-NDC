@@ -1,96 +1,44 @@
 ﻿@using System.Collections
-@model IEnumerable<CiberNdc.Models.Employee>
+@model dynamic
 @{
     ViewBag.Title = "CIBER @ NDC";
 }
 
+<div id="message"></div>
+<div id="photogrid"></div>
 
-<div id="tile" class="tiles blue" data-mode="flip" data-delay="5000">
-    <a href="employees/index"><div class="purple live-tile exclude">
-        <h3><span class="tile-title" style="color: white">Use your phone to upload photos of Ciber-employees at NDC and win nice prizes!</span></h3>
-        <h1 style="text-align: center; color: white">@ViewBag.Title</h1>
-    </div></a>
+<script type="text/javascript">
+    var i = 0;
+
+    setInterval(function() {
+        if (i % 5 == 0) {
+            showMessage();
+        }else {
+            showPhotoGrid();
+        }
+        i++;
+    }, 5000);
     
-    @{ var delay = 0; }
-    @foreach (var employee in Model)
-    {
-        delay += 300;
-        if (employee.Photos.Count == 1)
-        {
-            <div class="purple live-tile exclude">
-                @foreach (var photo in employee.Photos)
-                {
-                    <div>
-                        <img src="/Home/GetImage?id=@photo.Id&size=360x360"/>
-                        <a class="tile-title">@photo.Employee.Name</a>
-                    </div>
-                }
-            </div>
-        continue;
-        }
-        
-        if (employee.Photos.Count < 8)
-        {
-            for (int i = 1; i < employee.Photos.Count; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    continue;
-                }
-                <div class="live-tile" data-mode="flip" data-delay="5000" data-initdelay="@(delay + i * 300)">
-                    <div>
-                        <img src="/Home/GetImage?id=@employee.Photos[i-1].Id&size=360x360"/>
-                        <a class="tile-title">@employee.Name</a>
-                    </div>
-                    <div>
-                        <img src="/Home/GetImage?id=@employee.Photos[i].Id&size=360x360"/>
-                        <a class="tile-title">@employee.Name</a>
-                    </div>
-                </div>
-            }
-        }
-        else {if (employee.Photos.Count < 18)
-        {
-            <div class="purple list-tile">
-                <span class="tile-title">@employee.Name</span>
-                @{
-                    var altId = 1;
-                }
-                <ul class="flip-list fourTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
-                    @foreach (var photo in employee.Photos)
-                    {
-                        <li><div><img src="/Home/GetImage?id=@photo.Id&size=180x180" alt="@altId" /></div></li>
-                        @(altId += 1);
-                    }
-                </ul>
-            </div>
-        }
-        else
-        {
-            {
-                <div class="purple list-tile">
-                    <span class="tile-title">@employee.Name</span>
-                    @{
-                        var altId = 1;
-                    }
-                    <ul class="flip-list nineTiles" data-mode="flip" data-delay="5000" data-initdelay="@delay">
-                        @foreach (var photo in employee.Photos)
-                        {
-                            <li><div><img src="/Home/GetImage?id=@photo.Id&size=120x120" alt="@altId" /></div></li>
-                            altId += 1;
-                        }
-                    </ul>
-                </div>
-            }
-        }
-        }
+    function showPhotoGrid() {
+        $('#message').hide("slow", getNextMessage());
+        $('#photogrid').show("slow");
+    }
+     function showMessage() {
+        $('#photogrid').hide("slow", updatePhotoGrid());
+        $('#message').show("slow");
+    }
+     
+    function getNextMessage() {
+        $('#message').load("@Url.Action("GetMessage", "Home")");
     }
     
-</div>
-
-<script src="~/Scripts/metro/jquery.metro.js"></script>
-<script type="text/javascript">
-    // apply regular slide universally unless .exclude class is applied 
-    // NOTE: The default options for each liveTile are being pulled from the 'data-' attributes
-    $(".live-tile, .flip-list").not(".exclude").liveTile();
+    function updatePhotoGrid() {
+        $('#photogrid').load("@Url.Action("PhotoGrid" , "Home" )");
+    }
+    
+     $(document).ready(function() {
+         updatePhotoGrid();
+         $('#message').load("@Url.Action("GetMessage", "Home", new {id=1})");
+         showMessage();
+     });
 </script>

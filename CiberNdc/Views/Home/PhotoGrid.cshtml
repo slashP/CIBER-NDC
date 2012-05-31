@@ -1,0 +1,103 @@
+﻿@model IEnumerable<CiberNdc.Models.Employee>
+
+<div id="tile" class="tiles blue" data-mode="flip" data-delay="5000">
+    
+    <a href="employees/index"><div class="white live-tile exclude">
+                                  <h3><span class="tile-title">Welcome to our stand at ndc! Use your phone to upload photos of Ciber-employees at NDC and win nice prizes!</span></h3>
+                                  <h1 style="text-align: center; color: white"><img src="/Content/ciber/Vertical_Color.png" alt=""/></h1>
+                              </div></a>
+    
+    @{ var delay = 0;
+        const int interval = 15000;
+    }
+    @foreach (var employee in Model)
+    {
+        if (employee.Photos.Count == 1)
+        {
+            <div class="purple live-tile exclude">
+                @foreach (var photo in employee.Photos)
+                {
+                    <div>
+                        <img src="/Home/GetImage?id=@photo.Id&size=360x360"/>
+                        <a class="tile-title">@photo.Employee.Name</a>
+                    </div>
+                }
+            </div>
+            continue;
+        }
+        
+        if (employee.Photos.Count < 8)
+        {
+            for (int i = 1; i < employee.Photos.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    continue;
+                }
+                <div class="live-tile" data-mode="flip" data-delay="@interval" data-initdelay="@(delay)">
+                    <div>
+                        <img src="/Home/GetImage?id=@employee.Photos[i-1].Id&size=360x360"/>
+                        <a class="tile-title">@employee.Name</a>
+                    </div>
+                    <div>
+                        <img src="/Home/GetImage?id=@employee.Photos[i].Id&size=360x360"/>
+                        <a class="tile-title">@employee.Name</a>
+                    </div>
+                </div>
+                delay += 150;
+            }
+        }
+        else {if (employee.Photos.Count < 18)
+        {
+            <div class="purple list-tile">
+                <span class="tile-title">@employee.Name</span>
+                
+                <ul class="flip-list fourTiles" data-mode="flip-list" data-delay="@interval" data-initdelay="@delay">
+                    @for (int i = 0; i < employee.Photos.Count; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            continue;
+                        }
+                        <li>
+                            <div>
+                                <img src="/Home/GetImage?id=@employee.Photos[i-1].Id&size=180x180" alt="@(i / 2)" />
+                            </div>
+                            <div>
+                                <img src="/Home/GetImage?id=@employee.Photos[i].Id&size=180x180" alt="@(i / 2)" />
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+        }
+        else
+        {
+            {
+                <div class="purple list-tile">
+                    <span class="tile-title">@employee.Name</span>
+                    @{
+                        var altId = 1;
+                    }
+                    <ul class="flip-list nineTiles" data-mode="flip" data-delay="@interval" data-initdelay="@delay">
+                        @foreach (var photo in employee.Photos)
+                        {
+                            <li><div><img src="/Home/GetImage?id=@photo.Id&size=120x120" alt="@altId" /></div></li>
+                            altId += 1;
+                        }
+                    </ul>
+                </div>
+            }
+        }
+
+        delay += 150;
+        }
+    }
+    
+</div>
+
+<script src="~/Scripts/metro/jquery.metro.js"></script>
+<script type="text/javascript">
+    $(".live-tile, .flip-list").not(".exclude").liveTile();
+</script>

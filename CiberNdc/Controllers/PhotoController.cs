@@ -23,7 +23,7 @@ namespace CiberNdc.Controllers
             var photos = db.Photos.Include(p => p.Employee);
             if (employeeId != null)
                 photos = db.Photos.Where(p => p.EmployeeId == employeeId);
-            return View(photos.ToList());
+            return View(photos.OrderByDescending(x => x.UploadedBy).ThenBy(x => x.EmployeeId).ToList());
         }
 
         //
@@ -93,6 +93,7 @@ namespace CiberNdc.Controllers
                 p.Name = photo.Name;
                 p.Filename = photo.Filename;
                 p.Format = photo.Format;
+                p.UploadedBy = photo.UploadedBy;
 
                 db.SaveChanges();
                 return RedirectToAction("Index");

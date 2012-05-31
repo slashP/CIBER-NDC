@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -23,8 +24,21 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            var employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos);
-            return View(employees.ToList());
+            ViewBag.Employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id);
+            return View();
+        }
+
+        
+        public ActionResult PhotoGrid(int? numberOfImages)
+        {
+            return PartialView(IEnumerableRandomization.Randomize(_db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id)));
+        }
+
+        public ActionResult GetMessage(int? id)
+        {
+            if (id == null)
+                return PartialView(_db.Messages.Find(new Random().Next(2, _db.Messages.Count()+1)));
+            return PartialView(_db.Messages.Find(id));
         }
 
         public ActionResult GetImage(int id, string size)
@@ -61,10 +75,13 @@ namespace CiberNdc.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadPhoto(string codeword)
+        public ActionResult UploadPhotoPost(string codeword, string uploadedby)
          {
             if (String.IsNullOrEmpty(codeword))
                 return RedirectToAction("UploadPhoto", new { warning = "You have to fill in a codeword!" });
+
+            if (String.IsNullOrEmpty(uploadedby))
+                return RedirectToAction("UploadPhoto", new { warning = "You have to fill in who you are!" });
 
             var recognize = codeword != "ignore";
             var image = Request.Files.Count > 0 ? Request.Files[0] : null;
@@ -73,7 +90,7 @@ namespace CiberNdc.Controllers
                 return RedirectToAction("UploadPhoto", new { warning = "No image assigned!" });
 
             if(!ImageUtil.AllowedImageTypes.Contains(image.ContentType))
-                return RedirectToAction("UploadPhoto", new { warning = "Not allowed imagetype! (" +image.ContentType + ")" });
+                return RedirectToAction("UploadPhoto", new { warning = "Not allowed imagetype! (" + image.ContentType + ")" });
 
             var im = Image.FromStream(image.InputStream);
             var imageFormat = ImageUtil.GetImageFormat(image.ContentType);
@@ -85,7 +102,8 @@ namespace CiberNdc.Controllers
                                 Filename = image.FileName,
                                 Format = imageFormat.ToString(),
                                 Name = title,
-                                ImageStream = ReadFully(newImage)
+                                ImageStream = ReadFully(newImage),
+                                UploadedBy = uploadedby
                             };
                 _db.Photos.Add(photo);
                 _db.SaveChanges();
@@ -121,8 +139,10 @@ namespace CiberNdc.Controllers
          }
 
         [HttpPost]
-        public ActionResult UploadAndRecognize(string image, string codeword)
+        public ActionResult UploadAndRecognize(string image, string codeword, string uploadedby)
         {
+            if (String.IsNullOrEmpty(uploadedby))
+                return new JsonResult { Data = new { warning = true, message = "You have to fill in your name!" } };
             var filnanvn = "test-" + DateTime.Now.ToFileTime();
             var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
             var splitted = image.Split(',')[1];
@@ -135,7 +155,8 @@ namespace CiberNdc.Controllers
                 Format = "Image/jpg",
                 Name = title,
                 ImageStream = ReadFully(imageEncoded.ResizeImage(new Size(480, 480), ImageFormat.Jpeg)),
-                Employee = null
+                Employee = null,
+                UploadedBy = uploadedby
             };
 
             _db.Photos.Add(photo);

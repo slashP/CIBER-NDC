@@ -22,7 +22,7 @@
 
 <h2>Upload photo</h2>
 
-@using (Html.BeginForm("UploadPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UploadPhotoPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <fieldset>
         <div class="editor-label">
@@ -37,6 +37,13 @@
         </div>
         <div class="editor-field">
             <input id="codeword" name="codeword" type="text" />
+        </div>
+
+        <div class="editor-label">
+            Who are you?
+        </div>
+        <div class="editor-field">
+            <input id="uploadedby" name="uploadedby" type="text" value="Name (phonenumber)" />
         </div>
 
         <p>

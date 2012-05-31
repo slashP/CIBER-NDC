@@ -20,6 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Employee.Name)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadedBy)
+        </th>
         <th>Bilde</th>
         <th></th>
     </tr>
@@ -40,7 +43,10 @@
             @Html.DisplayFor(modelItem => item.Employee.Name)
         </td>
         <td>
-            <img src="/Home/GetImage/@item.Id" alt="Bilde av person" width="50px;"/>
+            @Html.DisplayFor(modelItem => item.UploadedBy)
+        </td>
+        <td>
+            <img src="/Home/GetImage?id=@item.Id&size=48x48" alt="Bilde av person" width="50px;"/>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | 

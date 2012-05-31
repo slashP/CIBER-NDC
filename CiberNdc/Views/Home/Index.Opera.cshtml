@@ -1,11 +1,11 @@
-﻿@model IEnumerable<CiberNdc.Models.Employee>
+﻿@model dynamic
 @{
     ViewBag.Title = "Ciber @ NDC";
 }
 
 <div data-role="content">
     <ul data-role="listview" data-inset="true">
-        @foreach (var employee in Model)
+        @foreach (var employee in ViewBag.Employees)
         {
             <li class="item">
                 <img src="/Home/GetImage?id=@(employee.Photos[0].Id)" class="ui-li-thumb ui-corner-tl">

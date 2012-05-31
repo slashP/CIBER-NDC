@@ -36,6 +36,12 @@
             </label>
             <input type="text" id="codeword" data-bind="value:codeword" />
         </fieldset>
+        <fieldset data-role="controlgroup">
+             <label for="uploadedby">
+                Who are you?
+            </label>
+            <input type="text" id="uploadedby" data-bind="value:uploadedby" />
+        </fieldset>
     </div>
     <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
 </div>
@@ -54,11 +60,13 @@
         var json = new Object();
         self.message = ko.observable('');
         self.codeword = ko.observable('codeword');
+        self.uploadedby = ko.observable('Name (phonenumber)');
 
         self.imageData.subscribe(function (value) {
 
             json.image = value;
             json.codeword = self.codeword();
+            json.uploadedby = self.uploadedby();
             self.failure(false);
             self.success(false);
             $.ajax({
