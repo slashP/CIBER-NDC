@@ -206,7 +206,7 @@ namespace CiberNdc.Controllers
                 return null;
 
             var uids = _db.Employees.Select(emp => emp.Name + "@ndcwebapp.apphb.com").ToList();
-            var urls = new List<string> { "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id };
+            var urls = new List<string> { "http://ciber.apphb.com/Home/GetImage/" + photo.Id };
             var asdf = _api.FacesRecognize(urls, uids, "ndcwebapp.apphb.com", "", "", null, null, null);
             var image = asdf.Photos.FirstOrDefault();
 
