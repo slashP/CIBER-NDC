@@ -15,7 +15,7 @@
         
         var ctx = canvas.getContext('2d');
         if (viewModel.stream) {
-            ctx.drawImage(video, 0, 0);
+            ctx.drawImage(video, 0, 0, 300, 300);
             viewModel.imageData(canvas.toDataURL("image/jpg"));
             //img.src = canvas.toDataURL('image/png');
         }
