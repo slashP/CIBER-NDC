@@ -58,8 +58,8 @@ namespace CiberNdc.Controllers
             {
                 if (image.Tags != null)
                 {
-                    var tag = image.Tags.FirstOrDefault();
-                    if (tag != null)
+                    var tag = image.Tags.OrderByDescending(x => x.uids.Count).FirstOrDefault();
+                    if (tag != null && tag.uids != null)
                     {
                         var uid = tag.uids.FirstOrDefault();
                         if (uid != null)
