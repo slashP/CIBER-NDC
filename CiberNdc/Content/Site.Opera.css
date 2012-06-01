@@ -11,7 +11,6 @@ canvas {
     margin-left: auto;
     margin-right: auto;
     position: absolute;
-    z-index: 0;
 }
 
 .purple-square {
@@ -27,8 +26,7 @@ canvas {
 }
 
 
-
-.ui-btn  {
+#photobutton  {
     font-size: 1.5em;
     bottom: 0px;
     position: absolute;
