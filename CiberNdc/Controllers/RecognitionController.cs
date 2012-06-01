@@ -23,14 +23,16 @@ namespace CiberNdc.Controllers
                 return null;
 
             var uids = new List<string> { emp.Name + "@ndcwebapp.apphb.com" };
-            var urls = new List<string> { Request.Url.Host + "/Home/GetImage/" + photo.Id };
+            var urls = new List<string> { "http://ciber.apphb.com/Home/GetImage/" + photo.Id };
 
             var detection = _api.FacesDetect(urls, "", null, null, null);
 
             var tids = new List<string>(); //detection.Photos.Select(photo => photo.Tags.Select(t => t.tid)).ToList();
+            if (detection.Status != "success")
+                return null;
             foreach (var p in detection.Photos)
             {
-                tids.AddRange(p.Tags.Select(t => t.tid));
+                tids.AddRange(p.Tags.Select(tag => tag.tid));
             }
             if (tids.Count == 0)
                 return null;
@@ -47,20 +49,24 @@ namespace CiberNdc.Controllers
                 return null;
 
             var uids = _db.Employees.Select(emp => emp.Name + "@ndcwebapp.apphb.com").ToList();
-            var urls = new List<string> { Request.Url.Host + "/Home/GetImage/" + photo.Id };
+            var urls = new List<string> { "http://ciber.apphb.com/Home/GetImage/" + photo.Id };
             var asdf = _api.FacesRecognize(urls, uids, "ndcwebapp.apphb.com", "", "", null, null, null);
-            var firstOrDefault = asdf.Photos.FirstOrDefault();
 
-            if (firstOrDefault != null)
+            var image = asdf.Photos.FirstOrDefault();
+
+            if (image != null)
             {
-                var orDefault = firstOrDefault.Tags.FirstOrDefault();
-                if (orDefault != null)
+                if (image.Tags != null)
                 {
-                    var uid = orDefault.uids.FirstOrDefault();
-                    if (uid != null)
+                    var tag = image.Tags.FirstOrDefault();
+                    if (tag != null)
                     {
-                        ViewBag.recongizedEmployee = uid.uid + "(" + uid.confidence + ")";
-                        return View();
+                        var uid = tag.uids.FirstOrDefault();
+                        if (uid != null)
+                        {
+                            ViewBag.recongizedEmployee = uid.uid + "(" + uid.confidence + ")";
+                            return View();
+                        }
                     }
                 }
             }
@@ -75,7 +81,7 @@ namespace CiberNdc.Controllers
                 return null;
 
             var uids = new List<string> { emp.Name + "@ndcwebapp.apphb.com" };
-            var urls = emp.Photos.Select(photo => Request.Url.Host + "/Home/GetImage/" + photo.Id).ToList();
+            var urls = emp.Photos.Select(photo => "http://ciber.apphb.com/Home/GetImage/" + photo.Id).ToList();
             var detection = _api.FacesDetect(urls, "", null, null, null);
 
             var tids = new List<string>(); //detection.Photos.Select(photo => photo.Tags.Select(t => t.tid)).ToList();
