@@ -5,14 +5,8 @@
     ViewBag.Title = "Take photo";
 }
 
-<script src="/Scripts/knockout.js"></script>
-<script src="/Scripts/jquery-1.6.4.js"></script>
-<script src="/Scripts/custom/videoInit.js"></script>
-<script src="/Scripts/custom/takePicture.js"></script>
-<script src="/Scripts/custom/message.js"></script>
-<script src="/Scripts/custom/navigator.getusermedia.js"></script>
-
 <div data-role="content">
+    
     <div class="msg-holder" data-bind="visible: showMsg()" >
         <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
             <h2>Failure: <span data-bind="text: message"></span></h2>
@@ -21,30 +15,40 @@
             <h2>Success: <span data-bind="text: message"></span></h2>
         </div>
     </div>
+
     <div id="loading" data-bind="visible: loading">
-        <img src="/Content/images/ajax-loader.png">
-    </div>
-    <div class="purple-square">
-        <video style="margin-left: -80px" autoplay data-bind="videoInit: 'null'"></video>
-        <canvas style="margin-left: -80px" width="480" height="480" style="display:none;"></canvas>
+        <h3>Uploading image..</h3>
+        <img src="/Content/images/ajax-loader.gif">
+        <canvas width="480" height="480"></canvas>
     </div>
     
     <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
-             <label for="codeword">
+            <label for="codeword">
                 Codeword:
             </label>
-            <input type="text" id="codeword" data-bind="value:codeword" />
+            <input type="text" id="codeword" data-bind="value:codeword" onblur="if (this.value == '') {this.value = 'codeword';}"  onfocus="if (this.value == 'codeword') {this.value = '';}" />
         </fieldset>
         <fieldset data-role="controlgroup">
-             <label for="uploadedby">
+            <label for="uploadedby">
                 Who are you?
             </label>
-            <input type="text" id="uploadedby" data-bind="value:uploadedby" />
+            <input type="text" id="uploadedby" data-bind="value:uploadedby" onblur="if (this.value == '') {this.value = 'Name and Phonenumber';}"  onfocus="if (this.value == 'Name and Phonenumber') {this.value = '';}"/>
         </fieldset>
+
+        <div class="purple-square">
+            <video autoplay data-bind="videoInit: 'null'"></video>
+            <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
+        </div>
     </div>
-    <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
+    
 </div>
+
+<script src="/Scripts/knockout.js"></script>
+<script src="/Scripts/jquery-1.6.4.js"></script>
+<script src="/Scripts/custom/videoInit.js"></script>
+<script src="/Scripts/custom/takePicture.js"></script>
+<script src="/Scripts/custom/message.js"></script>
 <script>
     function workspaceViewModel () {
 
@@ -60,7 +64,7 @@
         var json = new Object();
         self.message = ko.observable('');
         self.codeword = ko.observable('codeword');
-        self.uploadedby = ko.observable('Name (phonenumber)');
+        self.uploadedby = ko.observable('Name and Phonenumber');
 
         self.imageData.subscribe(function (value) {
 
@@ -92,7 +96,7 @@
                 self.success(true);
                 self.failure(false);
             }
-            else if(data.warning) {
+            else if (data.warning) {
                 self.message(data.message);
                 self.success(false);
                 self.failure(true);

@@ -182,7 +182,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ciber\CIBER_RGB_web.png" />
+    <Content Include="Content\ciber\Horizontal_BW.png" />
+    <Content Include="Content\ciber\Horizontal_BW_onBlack.gif" />
     <Content Include="Content\ciber\Vertical_Color.png" />
+    <Content Include="Content\Site.Opera.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\icons-18-black.png" />
@@ -211,7 +215,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\custom\navigator.getusermedia.js" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery.mobile-1.1.0.js" />

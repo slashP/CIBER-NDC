@@ -8,16 +8,16 @@
 }
 @if (!string.IsNullOrEmpty(warning))
 {
-    <div class="alert alert-error">
-        @warning
-    </div>
+    <script type="text/javascript">
+        alert("@(warning)");
+    </script>
 }
 
 @if (!string.IsNullOrEmpty(success))
 {
-    <div class="alert alert-success">
-        @success
-    </div>
+    <script type="text/javascript">
+        alert("@(success)");
+    </script>
 }
 
 <h2>Upload photo</h2>
@@ -36,14 +36,14 @@
             What is this person's codeword?
         </div>
         <div class="editor-field">
-            <input id="codeword" name="codeword" type="text" />
+            <input id="codeword" name="codeword" type="text" value="codeword" onblur="if (this.value == '') {this.value = 'codeword';}"  onfocus="if (this.value == 'codeword') {this.value = '';}" />
         </div>
 
         <div class="editor-label">
             Who are you?
         </div>
         <div class="editor-field">
-            <input id="uploadedby" name="uploadedby" type="text" value="Name (phonenumber)" />
+            <input id="uploadedby" name="uploadedby" type="text" value="Name and Phonenumber" onblur="if (this.value == '') {this.value = 'Name and Phonenumber';}"  onfocus="if (this.value == 'Name and Phonenumber') {this.value = '';}"/>
         </div>
 
         <p>

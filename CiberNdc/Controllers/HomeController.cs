@@ -153,7 +153,7 @@ namespace CiberNdc.Controllers
             var splitted = image.Split(',')[1];
             var imageEncoded = Base64ToImage(splitted);
             var recognize = codeword != "ignore";
-
+            
             var photo = new Photo
             {
                 Filename = filnanvn + ".jpg",

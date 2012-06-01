@@ -1,0 +1,132 @@
+﻿video {
+    width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid #c721d6;
+    position: absolute;
+    z-index: 1;
+}
+
+canvas {
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    z-index: 0;
+}
+
+.purple-square {
+    border: 10px solid purple;
+    margin-right: auto;
+    margin-left: auto;
+    width: 480px;
+    height: 480px;
+    background: none;
+    text-align: center;
+    overflow: visible;
+    position: relative;
+}
+
+
+
+.ui-btn  {
+    font-size: 1.5em;
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+.error-msg {
+    background: #d1686a !important;
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.success-msg 
+{
+    background: #b4e391 !important; 
+    
+    display: block;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;    
+    
+}
+
+.msg-holder {
+    position: absolute;
+    width: 100%;
+    z-index: 2000;
+    top: 40%;
+}
+
+.msg-holder h2 {
+    font-size: 1.5em;
+}
+
+#loading {
+    position: fixed;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.9;
+    z-index: 1000;
+    
+}
+
+#loading img {
+    position: relative;
+    display: block;
+    top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 10;
+}
+
+
+.view-switcher {
+    padding: 0.5em; 
+    font-weight: normal;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #e80c4d;
+    font-weight: bold;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input[type="text"].input-validation-error,
+input[type="password"].input-validation-error {
+    border: solid 1px #e80c4d;
+}
+
+.validation-summary-errors {
+    color: #e80c4d;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+    padding: 0px;
+}
+li.item span.image-overlay
+{
+    position:relative;
+    left:100px;
+    top:-40px;
+    height:0px;
+    display:block;
+}

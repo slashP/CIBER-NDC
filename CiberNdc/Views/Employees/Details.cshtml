@@ -10,27 +10,36 @@
     <legend>Employee</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+        @Html.DisplayNameFor(model => model.Name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.IsActive)
+        @Html.DisplayNameFor(model => model.IsActive)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.IsActive)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Codeword)
+        @Html.DisplayNameFor(model => model.Codeword)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Codeword)
     </div>
 </fieldset>
+<div>
+    <ul>
+    @foreach (var photo in Model.Photos)
+    {
+        <li><img src="/Home/GetImage?id=@photo.Id" alt="Bilde av person" width="360px;"/></li>
+    }
+    </ul>
+  
+</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

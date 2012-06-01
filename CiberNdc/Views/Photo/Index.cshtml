@@ -40,10 +40,13 @@
             @Html.DisplayFor(modelItem => item.Format)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Employee.Name)
+        @if (item.EmployeeId != null)
+        {
+                @Html.ActionLink(item.Employee.Name, "Details", "Employees", new { item.Employee.Id }, null)
+        }
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UploadedBy)
+    <td>
+        @Html.DisplayFor(modelItem => item.UploadedBy)
         </td>
         <td>
             <img src="/Home/GetImage?id=@item.Id&size=48x48" alt="Bilde av person" width="50px;"/>
