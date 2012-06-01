@@ -23,7 +23,7 @@ namespace CiberNdc.Controllers
                 return null;
 
             var uids = new List<string> { emp.Name + "@ndcwebapp.apphb.com" };
-            var urls = new List<string> { "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id };
+            var urls = new List<string> { Request.Url.Host + "/Home/GetImage/" + photo.Id };
 
             var detection = _api.FacesDetect(urls, "", null, null, null);
 
@@ -47,7 +47,7 @@ namespace CiberNdc.Controllers
                 return null;
 
             var uids = _db.Employees.Select(emp => emp.Name + "@ndcwebapp.apphb.com").ToList();
-            var urls = new List<string> { "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id };
+            var urls = new List<string> { Request.Url.Host + "/Home/GetImage/" + photo.Id };
             var asdf = _api.FacesRecognize(urls, uids, "ndcwebapp.apphb.com", "", "", null, null, null);
             var firstOrDefault = asdf.Photos.FirstOrDefault();
 
@@ -75,7 +75,7 @@ namespace CiberNdc.Controllers
                 return null;
 
             var uids = new List<string> { emp.Name + "@ndcwebapp.apphb.com" };
-            var urls = emp.Photos.Select(photo => "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id).ToList();
+            var urls = emp.Photos.Select(photo => Request.Url.Host + "/Home/GetImage/" + photo.Id).ToList();
             var detection = _api.FacesDetect(urls, "", null, null, null);
 
             var tids = new List<string>(); //detection.Photos.Select(photo => photo.Tags.Select(t => t.tid)).ToList();
