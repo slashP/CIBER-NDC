@@ -26,7 +26,6 @@ ko.bindingHandlers.videoInit = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         if (navigator.getUserMedia) {
             navigator.getUserMedia({ 'video': true, 'audio': false }, function (raw) {
-
                 viewModel.stream = raw;
                 element.src = raw;
                 computeSize(true);
@@ -36,12 +35,12 @@ ko.bindingHandlers.videoInit = {
             navigator.webkitGetUserMedia("video", function (stream) {
                 viewModel.stream = stream;
                 element.src = window.webkitURL.createObjectURL(stream);
-
                 computeSize(false);
             });
 
         } else {
-            alert("Your browser does not support access to your camera, try using the latest version of Opera Mobile!");
+            alert("Your browser does not support access to your camera, try using the latest version of Opera Mobile, or activate it in Chrome by setting the MediaStream-flag in chrome://flags/");
         }
     }
 };
+

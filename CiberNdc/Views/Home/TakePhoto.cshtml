@@ -20,7 +20,7 @@
         <div id="loading" data-bind="visible: loading">
             <h3>Uploading image..</h3>
             <img src="/Content/images/ajax-loader.gif">
-            <canvas id="myCanvas" width="300" height="300"></canvas>
+            <canvas id="myCanvas"></canvas>
         </div>
     
         <div data-role="fieldcontain">
@@ -38,7 +38,7 @@
             </fieldset>
 
             <div class="purple-square">
-                <video autoplay data-bind="videoInit: 'null'"></video>
+                <video id="video" autoplay data-bind="videoInit: 'null'" width="100%" ></video>
                 
             </div>
         </div>
@@ -133,5 +133,6 @@
         $(function () {
             ko.applyBindings(workspace, $('workspace').get(0));
         });
+        video.width = $(".purple-square").width();
     });
 </script>

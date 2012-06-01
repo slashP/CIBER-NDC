@@ -13,12 +13,22 @@
         var video = $('video').get(0);
         //var img = $('img').get(0);
 
+
+        SetWidthAndHeight();
+
         var ctx = canvas.getContext('2d');
         if (viewModel.stream) {
-            ctx.drawImage(video, 0, 0, 300, 300);
+            ctx.drawImage(video, 0, 0, 400, 300);
             viewModel.imageData(canvas.toDataURL("image/jpg"));
             //img.src = canvas.toDataURL('image/png');
         }
 
     }
+};
+
+var SetWidthAndHeight = function () {
+    video.width = $(".purple-square").width();
+    video.height = $(".purple-square").height();
+    myCanvas.width = 400;
+    myCanvas.height = 300;
 };
