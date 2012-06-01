@@ -1,8 +1,8 @@
 ﻿video {
-    width: 480px;
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
-    border: 3px solid #c721d6;
+    border: 2px solid #c721d6;
     position: absolute;
     z-index: 1;
 }
