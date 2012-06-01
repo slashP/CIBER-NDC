@@ -208,17 +208,19 @@ namespace CiberNdc.Controllers
             var uids = _db.Employees.Select(emp => emp.Name + "@ndcwebapp.apphb.com").ToList();
             var urls = new List<string> { "http://ndcwebapp.apphb.com/Home/GetImage/" + photo.Id };
             var asdf = _api.FacesRecognize(urls, uids, "ndcwebapp.apphb.com", "", "", null, null, null);
-            var firstOrDefault = asdf.Photos.FirstOrDefault();
+            var image = asdf.Photos.FirstOrDefault();
 
-            if (firstOrDefault != null)
+            if (image != null)
             {
-                var orDefault = firstOrDefault.Tags.FirstOrDefault();
-                if (orDefault != null)
-                {
-                    var uid  = orDefault.uids.FirstOrDefault();
-                    if (uid != null)
+                if (image.Tags != null) {
+                    var tag = image.Tags.FirstOrDefault();
+                    if (tag != null)
                     {
-                        return Enumerable.FirstOrDefault(_db.Employees, employee => uid.uid.Contains(employee.Name));
+                        var uid  = tag.uids.FirstOrDefault();
+                        if (uid != null)
+                        {
+                            return Enumerable.FirstOrDefault(_db.Employees, employee => uid.uid.Contains(employee.Name));
+                        }
                     }
                 }
             }
