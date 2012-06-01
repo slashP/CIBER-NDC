@@ -22,7 +22,11 @@ namespace CiberNdc.Controllers
         {
             var photos = db.Photos.Include(p => p.Employee);
             if (employeeId != null)
-                photos = db.Photos.Where(p => p.EmployeeId == employeeId);
+                if(employeeId > 0)
+                    photos = db.Photos.Where(p => p.EmployeeId == employeeId);
+                else
+                    photos = db.Photos.Where(p => p.EmployeeId == null);
+
             return View(photos.OrderByDescending(x => x.UploadedBy).ThenBy(x => x.EmployeeId).ToList());
         }
 

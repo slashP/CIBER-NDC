@@ -6,6 +6,11 @@
 
 <h2>@ViewBag.Title</h2>
 
+<p>
+    @Html.ActionLink("Unassigned", "Index", new{employeeId = 0}) | 
+    @Html.ActionLink("All", "Index")
+</p>
+
 <table>
     <tr>
         <th>
