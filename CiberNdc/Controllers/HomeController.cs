@@ -41,6 +41,8 @@ namespace CiberNdc.Controllers
 
         public ActionResult GetMessage(int? id)
         {
+            if (_db.Messages.Count() == 0)
+                return null;
             if (id == null)
                 return PartialView(_db.Messages.Find(new Random().Next(2, _db.Messages.Count()+1)));
             return PartialView(_db.Messages.Find(id));
