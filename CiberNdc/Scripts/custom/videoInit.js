@@ -1,15 +1,24 @@
 ﻿var VIDEO_WIDTH, VIDEO_HEIGHT,
-computeSize = function(supportsObjectFit) {
-	// user agents that don't support object-fit 
-	// will display the video with a different 
-	// aspect ratio. 
-	if (supportsObjectFit === true) {
-		VIDEO_WIDTH = 640;
-		VIDEO_HEIGHT = 480;
-	} else {
-		VIDEO_WIDTH = video.videoWidth;
-		VIDEO_HEIGHT = video.videoHeight;
-	}
+computeSize = function (supportsObjectFit) {
+    // user agents that don't support object-fit 
+    // will display the video with a different 
+    // aspect ratio. 
+
+    if (video.videoHeight > video.videoWidth) {
+        video.height = $(".purple-square").height();
+        console.log("set video height to " + video.height);
+    } else {
+        video.width = $(".purple-square").width();
+        console.log("set video width to " + video.width);
+    }
+
+    if (supportsObjectFit === true) {
+        VIDEO_WIDTH = 320;
+        VIDEO_HEIGHT = 240;
+    } else {
+        VIDEO_WIDTH = video.videoWidth;
+        VIDEO_HEIGHT = video.videoHeight;
+    }
 },
 
 successCallback = function (stream) {

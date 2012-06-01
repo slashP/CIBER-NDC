@@ -2,9 +2,12 @@
 #photobutton  {
     font-size: 1.5em;
     bottom: 0px;
-    box-sizing: border-box;
-    margin: 0px;
     z-index: 100;
+    position: fixed;
+    width: 80%;
+    margin-bottom: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .error-msg {

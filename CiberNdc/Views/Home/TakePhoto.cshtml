@@ -38,7 +38,7 @@
             </fieldset>
 
             <div class="purple-square">
-                <video id="video" autoplay data-bind="videoInit: 'null'" width="100%" ></video>
+                <video id="video" autoplay data-bind="videoInit: 'null'" ></video>
                 
             </div>
         </div>
@@ -127,12 +127,12 @@
 
         };
     };
-    
+
     $(document).ready(function () {
         var workspace = new workspaceViewModel();
         $(function () {
             ko.applyBindings(workspace, $('workspace').get(0));
         });
-        video.width = $(".purple-square").width();
     });
+
 </script>
