@@ -38,7 +38,9 @@
 
         <div class="purple-square">
             <video autoplay data-bind="videoInit: 'null'"></video>
-            <button id="photobutton" data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
+            <div id="photobutton">
+                <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
+            </div>
         </div>
     </div>
     
