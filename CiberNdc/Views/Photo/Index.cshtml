@@ -54,7 +54,7 @@
         @Html.DisplayFor(modelItem => item.UploadedBy)
         </td>
         <td>
-            <img src="/Home/GetImage?id=@item.Id&size=48x48" alt="Bilde av person" width="50px;"/>
+            <a href="/Home/GetImage?id=@item.Id"><img src="/Home/GetImage?id=@item.Id&size=48x48" alt="Bilde av person" width="50px;"/></a>
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | 

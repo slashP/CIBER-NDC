@@ -4,21 +4,17 @@ computeSize = function (supportsObjectFit) {
     // will display the video with a different 
     // aspect ratio. 
 
-    if (video.videoHeight > video.videoWidth) {
+    var width = $(".purple-square").width();
+    var height = $(".purple-square").height();
+    var aspect = width / height;
+    console.log("aspect: " + aspect + "(" + width + "/" + height +")");
+    
+    if (aspect < 1) {
         video.height = $(".purple-square").height();
-        console.log("set video height to " + video.height);
     } else {
         video.width = $(".purple-square").width();
-        console.log("set video width to " + video.width);
     }
 
-    if (supportsObjectFit === true) {
-        VIDEO_WIDTH = 320;
-        VIDEO_HEIGHT = 240;
-    } else {
-        VIDEO_WIDTH = video.videoWidth;
-        VIDEO_HEIGHT = video.videoHeight;
-    }
 },
 
 successCallback = function (stream) {

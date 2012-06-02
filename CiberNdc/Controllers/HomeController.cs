@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using CiberNdc.Context;
@@ -200,6 +201,7 @@ namespace CiberNdc.Controllers
                 
 
             }
+            Thread.Sleep(2000);
             return new JsonResult { Data = new { success = true, message = "Image uploaded, no employee asigned." } };
         }
 

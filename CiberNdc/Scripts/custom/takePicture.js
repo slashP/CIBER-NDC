@@ -3,7 +3,15 @@
 
         $(element).click(
             function () {
+                var canvas = $('canvas').get(0);
+                video.height = Math.floor((video.videoHeight / video.videoWidth) * $(".purple-square").width());
+                canvas.height = (video.height);
+                canvas.width = (video.width);
+                $("#myCanvas").height(video.height);
+                $("#myCanvas").width(video.width);
+                console.log(canvas.width + "/" + canvas.height);
                 ko.bindingHandlers.takePicture.update(element, valueAccessor, allBindingsAccessor, viewModel);
+
             });
     },
 
@@ -15,7 +23,8 @@
 
         var ctx = canvas.getContext('2d');
         if (viewModel.stream) {
-            ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            console.log(canvas.width + "/" + canvas.height);
             viewModel.imageData(canvas.toDataURL("image/jpg"));
             //img.src = canvas.toDataURL('image/png');
         }

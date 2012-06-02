@@ -27,7 +27,7 @@ namespace CiberNdc.Controllers
                 else
                     photos = db.Photos.Where(p => p.EmployeeId == null);
 
-            return View(photos.OrderByDescending(x => x.UploadedBy).ThenBy(x => x.EmployeeId).ToList());
+            return View(photos.OrderByDescending(x => x.Id).ToList());
         }
 
         //
