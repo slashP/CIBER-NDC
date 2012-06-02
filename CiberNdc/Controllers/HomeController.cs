@@ -62,7 +62,7 @@ namespace CiberNdc.Controllers
                 if (s.Length == 2)
                 {
                     var scalesize = new Size(Convert.ToInt32(s[0]), Convert.ToInt32(s[1])); 
-                    var scaled = ImageUtil.ResizeImage(ImageUtil.ByteArrayToImage(bilde.ImageStream), scalesize, ImageUtil.GetImageFormat(bilde.Format));
+                    var scaled = ImageUtil.ResizeImage(ImageUtil.ByteArrayToImage(bilde.ImageStream), scalesize, ImageUtil.GetImageFormat(bilde.Format), true);
                     return File(scaled, ImageUtil.GetImageContentType(bilde.Format));
                 }
             }

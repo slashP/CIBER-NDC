@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
@@ -17,6 +18,11 @@ namespace CiberNdc.Util
 
         public static Stream ResizeImage(this Image imgToResize, Size size, ImageFormat imageFormat)
         {
+            return ResizeImage(imgToResize, size, imageFormat, false);
+        }
+
+        public static Stream ResizeImage(this Image imgToResize, Size size, ImageFormat imageFormat, bool crop)
+        {
             var sourceWidth = imgToResize.Width;
             var sourceHeight = imgToResize.Height;
 
@@ -31,12 +37,21 @@ namespace CiberNdc.Util
 
             var destWidth = (int)(sourceWidth * nPercent);
             var destHeight = (int)(sourceHeight * nPercent);
+            var testHeight = (int)destHeight;
+
+            if (crop)
+            {
+                float c = (float)destWidth/(float)destHeight;
+                testHeight = (int) (destHeight/c);
+                destWidth = size.Width;
+                destHeight = size.Height;
+            }
 
             var b = new Bitmap(destWidth, destHeight);
             var g = Graphics.FromImage((Image)b);
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-            g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
+            g.DrawImage(imgToResize, 0, 0, destWidth, testHeight);
             g.Dispose();
 
             return b.ToStream(imageFormat);
