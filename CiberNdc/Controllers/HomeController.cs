@@ -51,6 +51,10 @@ namespace CiberNdc.Controllers
         public ActionResult GetImage(int id, string size)
         {
             var bilde = _db.Photos.Find(id);
+
+            if (bilde == null)
+                return null;
+
             if(size != null)
             {
                 var s = size.Split('x');
