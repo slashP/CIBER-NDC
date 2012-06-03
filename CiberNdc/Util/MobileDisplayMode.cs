@@ -11,14 +11,14 @@ namespace CiberNdc.Util
     {
         private readonly StringCollection _useragenStringPartialIdentifiers = new StringCollection
     {
-        //"Android",
-        //"Mobile",
+        "Android",
+        "Mobile",
         //"Opera Mobi",
-        //"Samsung",
-        //"HTC",
-        //"Nokia",
-        //"Ericsson",
-        //"SonyEricsson",
+        "Samsung",
+        "HTC",
+        "Nokia",
+        "Ericsson",
+        "SonyEricsson",
         //"iPhone",
         "Opera" //Like greitt å gå for alle
     };
