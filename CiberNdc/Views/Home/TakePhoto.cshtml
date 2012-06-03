@@ -8,14 +8,7 @@
     <div class="span6">&nbsp;</div>
     <div data-role="content" class="span6">
     
-        <div class="msg-holder" data-bind="visible: showMsg()" >
-            <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-                <h2>Feil: <span data-bind="text: message"></span></h2>
-            </div>
-            <div data-bind="message: success,visible: success" class='success-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-                <h2>Suksess: <span data-bind="text: message"></span></h2>
-            </div>
-        </div>
+        
 
         <div id="loading" data-bind="visible: loading">
             <h3>Laster opp bilde...</h3>
@@ -40,6 +33,14 @@
             <div class="purple-square">
                 <video id="video" autoplay data-bind="videoInit: 'null'" ></video>
                 
+            </div>
+        </div>
+        <div class="msg-holder" data-bind="visible: showMsg()" >
+            <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
+                <h2>Feil: <span data-bind="text: message"></span></h2>
+            </div>
+            <div data-bind="message: success,visible: success" class='success-msg ui-overlay-shadow ui-body-c ui-corner-all'>
+                <h2>Suksess: <span data-bind="text: message"></span></h2>
             </div>
         </div>
         <div id="photobutton">
