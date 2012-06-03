@@ -10,10 +10,10 @@
     
         <div class="msg-holder" data-bind="visible: showMsg()" >
             <div data-bind="message: failure,visible: failure" class='error-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-                <h2>Failure: <span data-bind="text: message"></span></h2>
+                <h2>Feil: <span data-bind="text: message"></span></h2>
             </div>
             <div data-bind="message: success,visible: success" class='success-msg ui-overlay-shadow ui-body-c ui-corner-all'>
-                <h2>Success: <span data-bind="text: message"></span></h2>
+                <h2>Suksess: <span data-bind="text: message"></span></h2>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
             </fieldset>
             <fieldset data-role="controlgroup">
                 <label for="uploadedby">
-                    Who are you?Ditt navn og telefonnummer:
+                    Ditt navn og telefonnummer:
                 </label>
                 <input type="text" id="uploadedby" data-bind="value:uploadedby" onblur="if (this.value == '') {this.value = 'Name and Phonenumber';}"  onfocus="if (this.value == 'Name and Phonenumber') {this.value = '';}"/>
             </fieldset>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div id="photobutton">
-            <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Upload image</button>
+            <button data-bind="takePicture: 'null'" data-icon="plus" data-iconpos="left">Ta bilde</button>
         </div>
 
     </div>
