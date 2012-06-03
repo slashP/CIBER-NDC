@@ -90,16 +90,16 @@ namespace CiberNdc.Controllers
         public ActionResult UploadPhotoPost(string codeword, string uploadedby)
          {
             if (String.IsNullOrEmpty(codeword))
-                return RedirectToAction("UploadPhoto", new { warning = "You have to fill in a codeword!" });
+                return RedirectToAction("UploadPhoto", new { warning = "Fyll inn kodeord!" });
 
             if (String.IsNullOrEmpty(uploadedby))
-                return RedirectToAction("UploadPhoto", new { warning = "You have to fill in who you are!" });
+                return RedirectToAction("UploadPhoto", new { warning = "Fyll inn navn og telefonnr!" });
 
             var recognize = codeword != "ignore";
             var image = Request.Files.Count > 0 ? Request.Files[0] : null;
 
             if(image == null)
-                return RedirectToAction("UploadPhoto", new { warning = "No image assigned!" });
+                return RedirectToAction("UploadPhoto", new { warning = "Du må velge et foto!" });
 
             if(!ImageUtil.AllowedImageTypes.Contains(image.ContentType))
                 return RedirectToAction("UploadPhoto", new { warning = "Not allowed imagetype! (" + image.ContentType + ")" });
@@ -128,25 +128,25 @@ namespace CiberNdc.Controllers
                     {
                         _db.Photos.Remove(photo);
                         _db.SaveChanges();
-                        return RedirectToAction("UploadPhoto", new { warning = "Person not recognized!" });
+                        return RedirectToAction("UploadPhoto", new { warning = "Ansatt ikke gjenkjent!" });
                     }
 
                     if (e.Codeword.ToUpper() != codeword.ToUpper())
                     {
                         _db.Photos.Remove(photo);
                         _db.SaveChanges();
-                        return RedirectToAction("UploadPhoto", new { warning = "Wrong codeword for " + e.Name + "!" });
+                        return RedirectToAction("UploadPhoto", new { warning = "Feil kodeord for " + e.Name + "!" });
                     }
 
                     var p = _db.Photos.Find(photo.Id);
                     p.Employee = e;
                     p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
                     _db.SaveChanges();
-                    return RedirectToAction("UploadPhoto", new { success = "Correct codeword, photo of " + e.Name + " uploaded!" });
+                    return RedirectToAction("UploadPhoto", new { success = "Riktig kodeord for " + e.Name + "! Bilde opplastet!" });
 
                 }
 
-                return RedirectToAction("UploadPhoto", new { success = "Image uploaded, no employee asigned." });
+                return RedirectToAction("UploadPhoto", new { success = "Bilde opplastet, ikke tilordnet noen ansatte" });
 
          }
 
@@ -154,7 +154,7 @@ namespace CiberNdc.Controllers
         public ActionResult UploadAndRecognize(string image, string codeword, string uploadedby)
         {
             if (String.IsNullOrEmpty(uploadedby))
-                return new JsonResult { Data = new { warning = true, message = "You have to fill in your name!" } };
+                return new JsonResult { Data = new { warning = true, message = "Fyll inn navn og telefonnr!" } };
             var filnanvn = "test-" + DateTime.Now.ToFileTime();
             var title = "MisterX-" + DateTime.Now.ToString("MM.dd HH:mm");
             var splitted = image.Split(',')[1];
@@ -183,26 +183,26 @@ namespace CiberNdc.Controllers
                 {
                     _db.Photos.Remove(photo);
                     _db.SaveChanges();
-                    return new JsonResult { Data = new { warning = true, message = "Person not recognized!" } };
+                    return new JsonResult { Data = new { warning = true, message = "Ansatt ikke gjenkjent!" } };
                 }
 
                 if (e.Codeword.ToUpper() != codeword.ToUpper())
                 {
                     _db.Photos.Remove(photo);
                     _db.SaveChanges();
-                    return new JsonResult { Data = new { warning = true, message = "Wrong codeword for " + e.Name + "!" } };
+                    return new JsonResult { Data = new { warning = true, message = "Feil kodeord for " + e.Name + "!" } };
                 }
                 
                 var p = _db.Photos.Find(photo.Id);
                 p.Employee = e;
                 p.Name = p.Name.Replace("MisterX", e.Name + "(recognized)");
                 _db.SaveChanges();
-                return new JsonResult { Data = new { success = true, message = "Correct codeword, photo of " + e.Name + " uploaded!" } };
+                return new JsonResult { Data = new { success = true, message = "Riktig kodeord for " + e.Name + "! Bilde opplastet!" } };
                 
 
             }
             Thread.Sleep(2000);
-            return new JsonResult { Data = new { success = true, message = "Image uploaded, no employee asigned." } };
+            return new JsonResult { Data = new { success = true, message = "Bilde opplastet, ikke tilordnet noen ansatte" } };
         }
 
         private Employee Recognize(int photoId)

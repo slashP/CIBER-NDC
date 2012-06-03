@@ -20,7 +20,7 @@ namespace CiberNdc.Util
         "Ericsson",
         "SonyEricsson",
         "iPhone",
-        "Labs" //For å teste i Opera Labs
+        "Opera" //Like greitt å gå for alle
     };
 
         public MobileDisplayMode()
