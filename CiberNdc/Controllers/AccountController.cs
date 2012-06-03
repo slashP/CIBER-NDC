@@ -91,7 +91,6 @@ namespace CiberNdc.Controllers
         //
         // GET: /Account/Register
 
-        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();
@@ -100,7 +99,6 @@ namespace CiberNdc.Controllers
         //
         // POST: /Account/JsonRegister
 
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult JsonRegister(RegisterModel model)
         {
@@ -128,7 +126,6 @@ namespace CiberNdc.Controllers
         //
         // POST: /Account/Register
 
-        [AllowAnonymous]
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
