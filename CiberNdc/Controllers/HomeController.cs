@@ -262,5 +262,10 @@ namespace CiberNdc.Controllers
             return Image.FromStream(new MemoryStream(imageBytes));
         }
 
+        public ActionResult Employees()
+        {
+            ViewBag.Employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id);
+            return View();
+        }
     }
 }

@@ -46,12 +46,6 @@ namespace CiberNdc
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Opera")
-            {
-                ContextCondition = context =>
-                    context.Request.UserAgent != null &&
-                    (context.Request.UserAgent.IndexOf("Opera", StringComparison.OrdinalIgnoreCase) >= 0)
-            });
             //BundleTable.Bundles.RegisterTemplateBundles();
             BundleTable.Bundles.EnableDefaultBundles();
         }

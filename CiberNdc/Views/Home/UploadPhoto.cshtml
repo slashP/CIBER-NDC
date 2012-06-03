@@ -1,7 +1,7 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = "Upload photo";
+    ViewBag.Title = "Last opp bilde";
 
     var warning = (string)ViewBag.Warning;
     var success = (string)ViewBag.Success;
@@ -26,28 +26,28 @@
 {
     <fieldset>
         <div class="editor-label">
-            Choose an image of an employee
+            Velg et bilde
         </div>
         <div class="editor-field">
             <input type="file" name="fileUpload" id="fileUpload" /><br />
         </div>
         
         <div class="editor-label">
-            What is this person's codeword?
+            Hva er den ansattes kodeord?
         </div>
         <div class="editor-field">
-            <input id="codeword" name="codeword" type="text" value="codeword" onblur="if (this.value == '') {this.value = 'codeword';}"  onfocus="if (this.value == 'codeword') {this.value = '';}" />
+            <input id="codeword" name="codeword" type="text" value="kodeord" onblur="if (this.value == '') {this.value = 'kodeord';}"  onfocus="if (this.value == 'kodeord') {this.value = '';}" />
         </div>
 
         <div class="editor-label">
-            Who are you?
+            Ditt navn og telefonnummer:
         </div>
         <div class="editor-field">
-            <input id="uploadedby" name="uploadedby" type="text" value="Name and Phonenumber" onblur="if (this.value == '') {this.value = 'Name and Phonenumber';}"  onfocus="if (this.value == 'Name and Phonenumber') {this.value = '';}"/>
+            <input id="uploadedby" name="uploadedby" type="text" value="Navn og telefon" onblur="if (this.value == '') {this.value = 'Navn og telefon';}"  onfocus="if (this.value == 'Navn og telefon') {this.value = '';}"/>
         </div>
 
         <p>
-            <input type="submit" value="Upload" />
+            <input type="submit" value="Last opp" />
         </p>
     </fieldset>
 }

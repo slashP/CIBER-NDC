@@ -23,6 +23,8 @@ namespace CiberNdc.Util
 
         public static Stream ResizeImage(this Image imgToResize, Size size, ImageFormat imageFormat, bool crop)
         {
+            if (!crop)
+            {
             var sourceWidth = imgToResize.Width;
             var sourceHeight = imgToResize.Height;
 
@@ -39,14 +41,6 @@ namespace CiberNdc.Util
             var destHeight = (int)(sourceHeight * nPercent);
             var testHeight = (int)destHeight;
 
-            if (crop)
-            {
-                float c = (float)destWidth/(float)destHeight;
-                testHeight = (int) (destHeight/c);
-                destWidth = size.Width;
-                destHeight = size.Height;
-            }
-
             var b = new Bitmap(destWidth, destHeight);
             var g = Graphics.FromImage((Image)b);
             g.InterpolationMode = InterpolationMode.HighQualityBicubic;
@@ -55,6 +49,41 @@ namespace CiberNdc.Util
             g.Dispose();
 
             return b.ToStream(imageFormat);
+                
+            }else
+            {
+                var sourceWidth = imgToResize.Width;
+                var sourceHeight = imgToResize.Height;
+
+                float nPercent;
+                var nPercentW = (size.Width / (float)sourceWidth);
+                var nPercentH = (size.Height / (float)sourceHeight);
+                var hStart = 0;
+                var vStart = 0;
+
+                if (nPercentH < nPercentW)
+                {
+                    nPercent = nPercentW;
+                    vStart = (int)(((float)sourceHeight / 2)*nPercent - (float)size.Height / 2 );
+                }
+                else
+                {
+                    nPercent = nPercentH;
+                    hStart =(int)((((float)sourceWidth / 2)*nPercent) - (float)size.Width / 2 );
+                }
+
+                var scaleWidth = (int)(sourceWidth * nPercent);
+                var scaleHeight = (int)(sourceHeight * nPercent);
+                
+                var b = new Bitmap(size.Width, size.Height);
+                var g = Graphics.FromImage(b);
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                g.DrawImage(imgToResize, -hStart, -vStart, scaleWidth, scaleHeight);
+                g.Dispose();
+
+                return b.ToStream(imageFormat);
+            }
         }
 
         public static string[] AllowedImageTypes = new[] { "image/jpeg", "image/png", "image/gif", "image/pjpeg" };

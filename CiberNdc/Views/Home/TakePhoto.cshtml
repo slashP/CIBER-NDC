@@ -18,7 +18,7 @@
         </div>
 
         <div id="loading" data-bind="visible: loading">
-            <h3>Uploading image..</h3>
+            <h3>Laster opp bilde...</h3>
             <img src="/Content/images/ajax-loader.gif">
             <canvas id="myCanvas"></canvas>
         </div>
@@ -26,13 +26,13 @@
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
                 <label for="codeword">
-                    Codeword:
+                    Hva er den ansattes kodeord?
                 </label>
                 <input type="text" id="codeword" data-bind="value:codeword" onblur="if (this.value == '') {this.value = 'codeword';}"  onfocus="if (this.value == 'codeword') {this.value = '';}" />
             </fieldset>
             <fieldset data-role="controlgroup">
                 <label for="uploadedby">
-                    Who are you?
+                    Who are you?Ditt navn og telefonnummer:
                 </label>
                 <input type="text" id="uploadedby" data-bind="value:uploadedby" onblur="if (this.value == '') {this.value = 'Name and Phonenumber';}"  onfocus="if (this.value == 'Name and Phonenumber') {this.value = '';}"/>
             </fieldset>
@@ -69,8 +69,8 @@
         
         var json = new Object();
         self.message = ko.observable('');
-        self.codeword = ko.observable('codeword');
-        self.uploadedby = ko.observable('Name and Phonenumber');
+        self.codeword = ko.observable('kodeord');
+        self.uploadedby = ko.observable('Navn og telefon');
 
         self.imageData.subscribe(function (value) {
 

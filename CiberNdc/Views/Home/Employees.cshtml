@@ -1,21 +1,21 @@
-﻿@model dynamic
+﻿@model IEnumerable<CiberNdc.Models.Employee>
 @{
     ViewBag.Title = "Ciber @ NDC";
 }
 
 <div data-role="content">
-    <ul data-role="listview" data-inset="true">
-        <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b ui-corner-top">Employees</li>
+    <ul data-role="listview" data-inset="true" class="ui-listview" data-theme="d">
+        <li data-role="list-divider" role="heading" class="ui-li ui-li-divider ui-bar-b ui-corner-top">Ansatte</li>
         @foreach (var employee in ViewBag.Employees)
         {
             <li class="item">
-                <a href="#" class="ui-link-inherit"><img src="/Home/GetImage?id=@(employee.Photos[0].Id)&size=60x60" /></a>
-                
+                <a href="#" class="ui-link-inherit"><img src="/Home/GetImage?id=@(employee.Photos[0].Id)&size=60x60" class="ui-li-thumb ui-corner-tl"/></a>
+
                 <span class="image-overlay">@employee.Name</span>
                 <span class="ui-li-count ui-btn-up-c ui-btn-corner-all">@employee.Photos.Count</span>
                 <ol data-role="listview" data-inset="true" data-filter="false">
                     @{
-                        var i = 1;  
+                        var i = 1;
                     }
                     @foreach (var bilde in employee.Photos)
                     {

@@ -267,7 +267,6 @@
     <Content Include="Views\Shared\_Layout.Opera.cshtml" />
     <Content Include="Views\Shared\_MobileScripts.cshtml" />
     <Content Include="Views\Shared\_DesktopScripts.cshtml" />
-    <Content Include="Views\Home\Index.Opera.cshtml" />
     <Content Include="Views\Home\UploadPhoto.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\Employees\Details.cshtml" />
@@ -291,6 +290,7 @@
     <Content Include="Views\Message\Create.cshtml" />
     <Content Include="Views\Message\Edit.cshtml" />
     <Content Include="Views\Message\Delete.cshtml" />
+    <Content Include="Views\Home\Employees.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
