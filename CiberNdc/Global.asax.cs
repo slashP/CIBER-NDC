@@ -46,6 +46,11 @@ namespace CiberNdc
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile")
+            {
+                ContextCondition = (context => context.GetOverriddenUserAgent()
+                    .IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0)
+            });
             //BundleTable.Bundles.RegisterTemplateBundles();
             BundleTable.Bundles.EnableDefaultBundles();
         }
