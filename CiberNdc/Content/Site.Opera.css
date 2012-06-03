@@ -38,10 +38,11 @@
 }
 
 .msg-holder {
-    position: absolute;
     width: 100%;
     z-index: 2000;
-    top: 40%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
 }
 
 .msg-holder h2 {
