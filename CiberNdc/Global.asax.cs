@@ -6,6 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.WebPages;
 using CiberNdc.Context;
+using CiberNdc.Util;
 using Devtalk.EF.CodeFirst;
 
 namespace CiberNdc
@@ -46,11 +47,8 @@ namespace CiberNdc
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile")
-            {
-                ContextCondition = (context => context.GetOverriddenUserAgent()
-                    .IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0)
-            });
+            DisplayModeProvider.Instance.Modes.Insert(0, new MobileDisplayMode());
+
             //BundleTable.Bundles.RegisterTemplateBundles();
             BundleTable.Bundles.EnableDefaultBundles();
         }

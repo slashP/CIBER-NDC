@@ -178,6 +178,7 @@
     <Compile Include="Util\FaceRestAPI.cs" />
     <Compile Include="Util\IEnumerableRandomization.cs" />
     <Compile Include="Util\ImageUtil.cs" />
+    <Compile Include="Util\MobileDisplayMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-responsive.min.css" />
