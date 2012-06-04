@@ -10,6 +10,7 @@ using CiberNdc.Context;
 
 namespace CiberNdc.Controllers
 {
+    [Authorize]
     public class MessageController : Controller
     {
         private DataContext db = new DataContext();
