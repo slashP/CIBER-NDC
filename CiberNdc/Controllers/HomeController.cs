@@ -37,7 +37,7 @@ namespace CiberNdc.Controllers
             {
                 employee.Photos.OrderByDescending(y => y.Id);
             }
-            return PartialView(IEnumerableRandomization.Randomize(employees));
+            return View(IEnumerableRandomization.Randomize(employees));
         }
 
         public ActionResult GetMessage(int? id)
@@ -45,8 +45,8 @@ namespace CiberNdc.Controllers
             if (_db.Messages.Count() == 0)
                 return null;
             if (id == null)
-                return PartialView(_db.Messages.Find(new Random().Next(2, _db.Messages.Count()+1)));
-            return PartialView(_db.Messages.Find(id));
+                return View(_db.Messages.Find(new Random().Next(2, _db.Messages.Count()+1)));
+            return View(_db.Messages.Find(id));
         }
 
         public ActionResult GetImage(int id, string size)
