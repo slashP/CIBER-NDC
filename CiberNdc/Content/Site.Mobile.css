@@ -17,6 +17,12 @@
     margin-right: auto;
 }
 
+#notis{
+    background: rgb(255, 241, 158);
+    padding: 10px;
+    border: 1px solid rgb(229, 214, 126);
+}
+
 .purple-square {
     border: 10px solid purple;
     overflow: hidden;
