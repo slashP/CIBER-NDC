@@ -49,8 +49,8 @@ namespace CiberNdc.Controllers
             if (!_db.Messages.Any())
                 return null;
             if (id != null && _db.Messages.Find(id) != null)
-                return PartialView(_db.Messages.Find(id));
-            return PartialView(_db.Messages.Find(new Random().Next(2, _db.Messages.Count() + 1)));
+                return View(_db.Messages.Find(id));
+            return View(_db.Messages.Find(new Random().Next(2, _db.Messages.Count() + 1)));
         }
 
         public ActionResult GetImage(int id, string size)
