@@ -21,8 +21,8 @@ namespace CiberNdc.Models
 
         public string RandomBackgroundColor()
         {
-            var colors = new[] {"greenbg", "redbg", "bluebg", "brownbg"};
-            return colors[Random.Next(0,3)];
+            var colors = new[] {"red", "mango", "blue", "purple", "green"};
+            return colors[Random.Next(0, colors.Length)];
         }
     }
 

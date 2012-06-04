@@ -18,7 +18,7 @@
             showPhotoGrid();
         }
         i++;
-    }, 5000);
+    }, 10000);
     
     function showPhotoGrid() {
         $('#message').hide("slow", getNextMessage());
@@ -34,7 +34,11 @@
     }
     
     function updatePhotoGrid() {
-        $('#photogrid').load("@Url.Action("PhotoGrid" , "Home" )");
+        if (i % 2 != 0) {
+            $('#photogrid').load("@Url.Action("PhotoGridTest" , "Home" )");
+        }else {
+            $('#photogrid').load("@Url.Action("PhotoGrid" , "Home" )");
+        }
     }
     
      $(document).ready(function() {

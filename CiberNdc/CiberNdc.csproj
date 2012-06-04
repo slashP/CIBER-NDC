@@ -291,6 +291,7 @@
     <Content Include="Views\Message\Edit.cshtml" />
     <Content Include="Views\Message\Delete.cshtml" />
     <Content Include="Views\Home\Employees.cshtml" />
+    <Content Include="Views\Home\PhotoGridTest.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

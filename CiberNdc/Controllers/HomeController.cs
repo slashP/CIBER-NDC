@@ -29,20 +29,24 @@ namespace CiberNdc.Controllers
             return View();
         }
 
-        public ActionResult PhotoGrid()
+        public PartialViewResult PhotoGrid(int? count)
         {
             var employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos);
-            foreach (var employee in employees)
-            {
-                employee.Photos.OrderByDescending(y => y.Id);
-            }
+           
             return PartialView(IEnumerableRandomization.Randomize(employees));
+        }
+
+        public PartialViewResult PhotoGridTest()
+        {
+            var photos = _db.Photos.Where(p => p.Employee.IsActive);
+
+            return PartialView((List<Photo>)IEnumerableRandomization.Randomize(photos).Take(Math.Min(photos.Count(), 72)).ToList());
         }
 
 
         public ActionResult GetMessage(int? id)
         {
-            if (_db.Messages.Count() == 0)
+            if (!_db.Messages.Any())
                 return null;
             if (id == null)
                 return View(_db.Messages.Find(new Random().Next(2, _db.Messages.Count()+1)));

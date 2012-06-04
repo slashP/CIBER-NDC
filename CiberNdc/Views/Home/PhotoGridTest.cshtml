@@ -1,0 +1,45 @@
+﻿@model System.Collections.Generic.List<CiberNdc.Models.Photo>
+
+@{
+    DisplayModeProvider.Instance.RequireConsistentDisplayMode = true;
+}
+
+
+<div id="tile" class="tiles blue" data-mode="flip" data-delay="5000">
+    
+    <a href="employees/index">
+        <div class="green live-tile exclude">
+            <h3><span class="tile-title">Velkommen til Ciber Norges stand på NDC. Her ser du bilder av våre ansatt som er her idag.</span></h3>
+            <h1 style="text-align: center; color: white"><img src="/Content/ciber/Vertical_Color.png" alt=""/></h1>
+        </div>
+    </a>
+    
+    @{ var delay = 0;
+        const int interval = 15000;
+    }
+    @for (int i = 1; i < Model.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    continue;
+                }
+                <div class="@Model[i].RandomBackgroundColor() live-tile" data-mode="flip" data-delay="@interval" data-initdelay="@(delay)">
+                    <div>
+                        <img src="/Home/GetImage?id=@Model[i-1].Id&size=360x360"/>
+                        <a class="tile-title">@Model[i-1].Employee.Name</a>
+                    </div>
+                    <div>
+                        <img src="/Home/GetImage?id=@Model[i].Id&size=360x360"/>
+                        <a class="tile-title">@Model[i].Employee.Name</a>
+                    </div>
+                </div>
+                delay += 150;
+            }
+        }
+    
+</div>
+
+<script src="~/Scripts/metro/jquery.metro.js"></script>
+<script type="text/javascript">
+    $(".live-tile, .flip-list").not(".exclude").liveTile();
+</script>

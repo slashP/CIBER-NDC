@@ -18,7 +18,7 @@
     {
         if (employee.Photos.Count == 1)
         {
-            <div class="purple live-tile exclude">
+            <div class="@employee.Photos[0].RandomBackgroundColor() live-tile exclude">
                 @foreach (var photo in employee.Photos)
                 {
                     <div>
@@ -38,13 +38,13 @@
                 {
                     continue;
                 }
-                <div class="live-tile" data-mode="flip" data-delay="@interval" data-initdelay="@(delay)">
+                <div class="@employee.Photos[i].RandomBackgroundColor() live-tile" data-mode="flip" data-delay="@interval" data-initdelay="@(delay)">
                     <div>
-                        <img src="/Home/GetImage?id=@employee.Photos[i-1].Id&size=360x360"/>
+                        <img src="/Home/GetImage?id=@employee.Photos[i-1].Id&size=360x340"/>
                         <a class="tile-title">@employee.Name</a>
                     </div>
                     <div>
-                        <img src="/Home/GetImage?id=@employee.Photos[i].Id&size=360x360"/>
+                        <img src="/Home/GetImage?id=@employee.Photos[i].Id&size=360x340"/>
                         <a class="tile-title">@employee.Name</a>
                     </div>
                 </div>
