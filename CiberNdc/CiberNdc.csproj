@@ -265,7 +265,6 @@
     <Content Include="Views\Shared\_ViewSwitcher.cshtml" />
     <Content Include="Views\Shared\_Layout.Mobile.cshtml" />
     <Content Include="Views\Home\Index.Mobile.cshtml" />
-    <Content Include="Views\Shared\_Layout.Opera.cshtml" />
     <Content Include="Views\Shared\_MobileScripts.cshtml" />
     <Content Include="Views\Shared\_DesktopScripts.cshtml" />
     <Content Include="Views\Home\UploadPhoto.cshtml" />
