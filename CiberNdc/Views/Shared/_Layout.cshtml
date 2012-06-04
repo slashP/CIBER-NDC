@@ -12,7 +12,6 @@
 
 </head>
     <body>
-        <div>@Html.Partial("_ViewSwitcher")</div>
         @if (User.Identity.IsAuthenticated)
         {
             <div>@Html.Partial("_AdminMenu")</div>
