@@ -25,7 +25,13 @@ namespace CiberNdc.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id);
+            //ViewBag.Employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id);
+            return View();
+        }
+        
+        public ActionResult Slideshow()
+        {
+            //ViewBag.Employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id);
             return View();
         }
 

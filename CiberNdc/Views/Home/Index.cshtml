@@ -1,49 +1,22 @@
-﻿@using System.Collections
-@model dynamic
+﻿@model IEnumerable<CiberNdc.Models.Employee>
 @{
-    ViewBag.Title = "CIBER @ NDC";
-    DisplayModeProvider.Instance.RequireConsistentDisplayMode = true;
+    ViewBag.Title = "Ciber @ NDC";
+    Layout = "~/Views/Shared/_Layout.mobile.cshtml";
 }
 
-<div id="message"></div>
-<div id="photogrid"></div>
+<div data-role="content">
+    <h2>Velkommen til Ciber Norge sin NDC-webapp!</h2>
+    <h4>Her kan du:</h4>
+    <p>Ta Cibers NDC-Quiz og bli med i trekningen av en Nokia Lumia 800.</p>
+    <p>
+        Laste opp eller ta bilde(hvis du har siste versjon av Opera Mobile) av Ciber-ansatte og bli med i den daglige trekningen av gavekort på XXL. De du tar bilde av vil bli ansiktsgjenkjent. Du må ha fylt inn det riktige ansatt-kodeordet for at bilde skal bli godkjent. Spør de ansatte etter dette! 
+    </p>
 
-<script type="text/javascript">
-    var i = 0;
-
-    setInterval(function() {
-        if (i % 5 == 0) {
-            showMessage();
-        }else {
-            showPhotoGrid();
-        }
-        i++;
-    }, 10000);
-    
-    function showPhotoGrid() {
-        $('#message').hide("slow", getNextMessage());
-        $('#photogrid').show("slow");
-    }
-     function showMessage() {
-        $('#photogrid').hide("slow", updatePhotoGrid());
-        $('#message').show("slow");
-    }
-     
-    function getNextMessage() {
-        $('#message').load("@Url.Action("GetMessage", "Home")");
-    }
-    
-    function updatePhotoGrid() {
-        if (i % 2 != 0) {
-            $('#photogrid').load("@Url.Action("PhotoGridTest" , "Home" )");
-        }else {
-            $('#photogrid').load("@Url.Action("PhotoGrid" , "Home" )");
-        }
-    }
-    
-     $(document).ready(function() {
-         updatePhotoGrid();
-         $('#message').load("@Url.Action("GetMessage", "Home", new {id=1})");
-         showMessage();
-     });
-</script>
+    <a href="http://5a24b1ea-aafc-11e1-8cac-9ce76188709b.apphb.com/" data-role="button">Gå til Quiz</a>
+    <a href="Home/TakePhoto" data-role="button">Ta bilde</a>
+    <a href="Home/UploadPhoto" data-role="button">Last opp bilde</a>
+    <h4>NB!</h4>
+    <div id="notis">
+        <p>For å delta med iPhone må du benytte Opera Mini, som har støtte for opplasting av bilder fra bildestrømmen.</p>
+    </div>
+</div>

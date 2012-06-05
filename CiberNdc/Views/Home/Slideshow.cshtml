@@ -1,0 +1,48 @@
+﻿@using System.Collections
+@model dynamic
+@{
+    ViewBag.Title = "CIBER @ NDC";
+}
+
+<div id="message"></div>
+<div id="photogrid"></div>
+
+<script type="text/javascript">
+    var i = 0;
+
+    setInterval(function() {
+        if (i % 5 == 0) {
+            showMessage();
+        }else {
+            showPhotoGrid();
+        }
+        i++;
+    }, 10000);
+    
+    function showPhotoGrid() {
+        $('#message').hide("slow", getNextMessage());
+        $('#photogrid').show("slow");
+    }
+     function showMessage() {
+        $('#photogrid').hide("slow", updatePhotoGrid());
+        $('#message').show("slow");
+    }
+     
+    function getNextMessage() {
+        $('#message').load("@Url.Action("GetMessage", "Home")");
+    }
+    
+    function updatePhotoGrid() {
+        if (i % 2 != 0) {
+            $('#photogrid').load("@Url.Action("PhotoGridTest" , "Home" )");
+        }else {
+            $('#photogrid').load("@Url.Action("PhotoGrid" , "Home" )");
+        }
+    }
+    
+     $(document).ready(function() {
+         updatePhotoGrid();
+         $('#message').load("@Url.Action("GetMessage", "Home", new {id=1})");
+         showMessage();
+     });
+</script>
