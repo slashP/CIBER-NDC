@@ -273,7 +273,21 @@ namespace CiberNdc.Controllers
 
         public ActionResult Employees()
         {
-            ViewBag.Employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Id);
+            var emp = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos).OrderByDescending(x => x.Name);
+            
+
+            foreach (var employee in emp)
+            {
+                var tmp = new Collection<Photo>();
+                for (var i = 0; i < employee.Photos.Count; i++)
+                {
+                    if (i > 3)
+                        break;
+                    tmp.Add(employee.Photos[i]);
+                }
+                employee.Photos = tmp;
+            }
+            ViewBag.Employees = emp;
             return View();
         }
     }
