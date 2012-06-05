@@ -23,14 +23,14 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("UploadPhotoPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("UploadPhotoPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return check();" }))
 {
     <fieldset>
         <div class="editor-label">
             Velg et bilde
         </div>
         <div class="editor-field">
-            <input type="file" name="fileUpload" id="fileUpload" /><br />
+            <input type="file" name="fileUpload" id="fileUpload" accept="image/*/><br />
         </div>
         
         <div class="editor-label">
@@ -52,3 +52,19 @@
         </p>
     </fieldset>
 }
+
+<script type="text/javascript" language="JavaScript">
+    function check() {
+        var ext = $("#fileUpload").innerHTML;
+        ext = ext.substring(ext.length - 3, ext.length);
+        ext = ext.toLowerCase();
+        if (ext != 'jpg') {
+            alert('You selected a .' + ext +
+          ' file; please select a .jpg file instead!');
+            return false;
+        }
+        else
+            alert(ext);
+            return true;
+    }
+</script>

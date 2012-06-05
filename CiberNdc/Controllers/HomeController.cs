@@ -107,10 +107,10 @@ namespace CiberNdc.Controllers
             var recognize = codeword != "ignore";
             var image = Request.Files.Count > 0 ? Request.Files[0] : null;
 
-            if(image == null)
+            if(image == null || image.ContentLength == 0)
                 return RedirectToAction("UploadPhoto", new { warning = "Du må velge et foto!" });
 
-            if(!ImageUtil.AllowedImageTypes.Contains(image.ContentType))
+            if (!ImageUtil.AllowedImageTypes.Contains(image.ContentType) && image.ContentType != "application/octet-stream")
                 return RedirectToAction("UploadPhoto", new { warning = "Not allowed imagetype! (" + image.ContentType + ")" });
 
             var im = Image.FromStream(image.InputStream);

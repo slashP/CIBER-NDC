@@ -22,18 +22,15 @@ namespace CiberNdc
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{id}", // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional },// Parameter defaults
+                new[] { "RebusMobile.Controllers" }
             );
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
         }
+
 
         protected void Application_Start()
         {
