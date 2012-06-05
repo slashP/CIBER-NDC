@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace CiberNdc.Models
 {
@@ -40,6 +41,7 @@ namespace CiberNdc.Models
         public int Id { get; set; }
         public string Title { get; set; }
         [Column(TypeName = "ntext")]
+        [AllowHtml]
         public string Text { get; set; }
     }
     
