@@ -29,14 +29,14 @@ namespace CiberNdc.Controllers
             return View();
         }
 
-        public ActionResult PhotoGrid(int? count)
+        public PartialViewResult PhotoGrid(int? count)
         {
             var employees = _db.Employees.Where(x => x.Photos.Count > 0 && x.IsActive).Include(x => x.Photos);
            
             return PartialView(IEnumerableRandomization.Randomize(employees));
         }
 
-        public ActionResult PhotoGridTest()
+        public PartialViewResult PhotoGridTest()
         {
             var photos = _db.Photos.Where(p => p.Employee.IsActive);
 
@@ -44,13 +44,13 @@ namespace CiberNdc.Controllers
         }
 
 
-        public ActionResult GetMessage(int? id)
+        public PartialViewResult GetMessage(int? id)
         {
             if (!_db.Messages.Any())
                 return null;
             if (id != null && _db.Messages.Find(id) != null)
-                return View(_db.Messages.Find(id));
-            return View(_db.Messages.Find(new Random().Next(2, _db.Messages.Count() + 1)));
+                return PartialView(_db.Messages.Find(id));
+            return PartialView(_db.Messages.Find(new Random().Next(2, _db.Messages.Count() + 1)));
         }
 
         public ActionResult GetImage(int id, string size)
