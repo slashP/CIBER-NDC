@@ -33,7 +33,7 @@
     }
     
     function updatePhotoGrid() {
-        if (i % 2 != 0) {
+        if (i % 6 != 1) {
             $('#photogrid').load("@Url.Action("PhotoGridTest" , "Home" )");
         }else {
             $('#photogrid').load("@Url.Action("PhotoGrid" , "Home" )");
