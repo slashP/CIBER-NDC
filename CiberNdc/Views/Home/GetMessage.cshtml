@@ -1,5 +1,5 @@
 ﻿@model CiberNdc.Models.Message
 
 <div id="message" style="position: absolute; width: 100%; height: 100%;">
-    @Model.Text
+    @Html.Raw(@Model.Text)
 </div>
